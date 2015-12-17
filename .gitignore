@@ -1,4 +1,11 @@
+/vendor
+/node_modules
 /bootstrap/compiled.php
+composer.phar
+composer.lock
 .env.*.php
 .env.php
 .env
+.php_cs.cache
+.DS_Store
+Thumbs.db

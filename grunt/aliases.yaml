@@ -1,0 +1,14 @@
+default:
+  description: 'Default'
+  tasks:
+
+build:
+  description: 'Build and publish release'
+  tasks:
+  - 'clean:dist'
+  - 'copy:dist'
+  - 'bump'
+  - 'readpkg'
+  - 'compress:dist'
+  - 'shell:deploySnapshot'
+  - 'clean:dist'

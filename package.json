@@ -1,0 +1,22 @@
+{
+  "name": "laravel-rest-cms",
+  "version": "1.0.1",
+  "description": "Laravel REST CMS",
+  "private": true,
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bump": "^0.3.0",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-open": "^0.2.3",
+    "grunt-shell": "^1.1.1",
+    "load-grunt-config": "^0.16.0"
+  },
+  "dependencies": {
+    "jshint-stylish": "^1.0.0",
+    "time-grunt": "^1.0.0"
+  }
+}
