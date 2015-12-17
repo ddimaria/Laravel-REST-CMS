@@ -1,6 +1,6 @@
 module.exports = {
 
-    deploySnapshot: {
+    deploy: {
         command: ''
     }
 };
