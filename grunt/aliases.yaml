@@ -2,6 +2,12 @@ default:
   description: 'Default'
   tasks:
 
+buildAndDeploy:
+  description: 'Build and publish release'
+  tasks:
+  - 'build'
+  - 'shell:deploy'
+
 build:
   description: 'Build and publish release'
   tasks:
@@ -10,5 +16,3 @@ build:
   - 'bump'
   - 'readpkg'
   - 'compress:dist'
-  - 'shell:deploySnapshot'
-  - 'clean:dist'
