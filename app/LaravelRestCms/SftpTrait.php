@@ -22,32 +22,7 @@ trait SftpTrait {
     /**
      * @var string
      */
-    protected $remotePathSuccess;
-    
-    /**
-     * @var string
-     */
-    protected $remotePathError;
-    
-    /**
-     * @var string
-     */
-    protected $remotePathProcessed;
-    
-    /**
-     * @var string
-     */
     protected $localPath;
-    
-    /**
-     * @var string
-     */
-    protected $localPathSuccess;
-    
-    /**
-     * @var string
-     */
-    protected $localPathError;
 
 
     /**
@@ -101,32 +76,5 @@ trait SftpTrait {
     public function moveTo($fullFileName, $fileName, $path)
     {
         return $this->sftp->rename($fullFileName, $path . '/' . $fileName);
-    }
-
-    /**
-     * Moves a file to MP's Processed folder
-     * 
-     * @param  string $fullFileName 
-     * @param  string $fileName    
-     * @param  string $pathProcessed    
-     * @return arrray            
-     */
-    public function moveToProcessed($fullFileName, $fileName, $pathProcessed = null)
-    {
-        $pathProcessed = $pathProcessed ?: $this->remotePathProcessed;
-
-        return $this->moveTo($fullFileName, $fileName, $pathProcessed);
-    }
-
-    /**
-     * Moves a file to MP's Success folder
-     * 
-     * @param  string $fullFileName 
-     * @param  string $fileName    
-     * @return arrray            
-     */
-    public function moveToSuccess($fullFileName, $fileName)
-    {
-        return $this->moveTo($fullFileName, $fileName, $this->remotePathSuccess);
     }
 }
