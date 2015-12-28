@@ -4,7 +4,7 @@ sudo: false
 
 matrix:
   include:
-    - php: 5.59
+    - php: 5.5
     - php: 5.6
       env: COLLECT_COVERAGE=true
     - php: 7
