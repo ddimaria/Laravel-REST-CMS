@@ -8,11 +8,36 @@ class BaseModel extends Model {
 	use CacheTrait;
 	use ValidatesRequests;
 
+	
 	/**
-	 * @var \Validator
+	 * The table name
+	 * 
+	 * @var string
+	 */
+	protected $table;
+	
+	/**
+	 * The singular version of the table name
+	 * 
+	 * @var string
+	 */
+	protected $singular;
+	
+	/**
+	 * The plural version of the table name
+	 * 
+	* @var string
+	 */
+	protected $plural;
+
+	/**
+	 * The Validator object
+	 * 
+	* @var \Validator
 	 */
 	protected $validation;
 
+	
 	/**
 	 * Validates a model
 	 * 
@@ -43,31 +68,45 @@ class BaseModel extends Model {
 	{
 		return $this->table;
 	}
-
+	
 	/**
-	 * General message handling that outputs to the log, slack and directly to the stream
+	 * Retrieves the singular name of the table
 	 * 
-	 * @param  string $message 
+	 * @param  boolean $format
+	 * @return string
 	 */
-	public function output($message)
+	public function getSingular($format = false)
 	{
-		$message = '`[' . strtoupper(app('env')) . ']` ' . $message;
-		$messageClean = str_replace('`', '', $message);
-
-		try {
-			\Slack::send($message);
-		} catch (\Exception $e) {
-			print $e->getMessage();
-		}
-		
-		try {
-			\Log::warning($messageClean);
-		} catch (\Exception $e) {
-			print $e->getMessage();
+		if (!isset($this->singular)) {
+			$this->singular = \Pluralizer::singular($this->table);
 		}
 
-		if (\App::runningInConsole()) {
-			print $messageClean . "\n";
+		return $format ? $this->formatTableName($this->singular) : $this->singular;
+	}	
+	
+	/**
+	 * Retrieves the plural name of the table
+	 * 
+	 * @param  boolean $format
+	 * @return string
+	 */
+	public function getPlural($format = false)
+	{
+		if (!isset($this->plural)) {
+			$this->plural = \Pluralizer::plural($this->table);
 		}
+
+		return $format ? $this->formatTableName($this->plural) : $this->plural;
+	}
+	
+	/**
+	 * Formats the table name into a human readable format
+	 * 
+	 * @param  string $name
+	 * @return string
+	 */
+	public static function formatTableName($name)
+	{
+		return ucwords(str_replace('_', ' ', $name));
 	}
 }
