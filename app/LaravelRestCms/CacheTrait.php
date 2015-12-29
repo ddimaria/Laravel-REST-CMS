@@ -27,13 +27,13 @@ trait CacheTrait {
         static::saved(function($model)
         {
             $model::cache($model, $model->{$model::$cacheKeyPart}, $model::getModelCache($model));
-            
+
             return true;
         });
         
         static::deleting(function($model)
         {
-           Cache::forget($model::getCacheKey());
+           \Cache::forget($model::getCacheKey());
             
             return true;
         });
@@ -62,8 +62,8 @@ trait CacheTrait {
     public static function cache($model, $keyPart, $data)
     {
         $key = $model::getCacheKey($keyPart);
-        Cache::forget($key);
-        Cache::put($key, $data, static::$cacheTime);
+        \Cache::forget($key);
+        \Cache::put($key, $data, static::$cacheTime);
         
         return $model;
     }
