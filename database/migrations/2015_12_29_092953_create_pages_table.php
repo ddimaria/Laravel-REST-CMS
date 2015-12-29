@@ -38,9 +38,9 @@ class CreatePagesTable extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropForeign('pages_api_parent_id_foreign');
-            $table->dropForeign('pages_api_template_id_foreign');
-            $table->dropForeign('pages_api_seo_id_foreign');
+            $table->dropForeign('pages_parent_id_foreign');
+            $table->dropForeign('pages_template_id_foreign');
+            $table->dropForeign('pages_seo_id_foreign');
         });
 
         Schema::drop('pages');
