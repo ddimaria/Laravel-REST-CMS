@@ -45,23 +45,6 @@ class BaseModel extends Model {
 	}
 
 	/**
-	 * Output contents of an array
-	 * 
-	 * @param  array  	$array        
-	 * @param  boolean 	$castKeyAsInt 
-	 * @return array                
-	 */
-	public static function keyValue($array, $castValAsInt = false)
-	{
-		array_walk($array, function(&$val, $key) use ($castValAsInt){
-            $val = $castValAsInt ? (int)$val : $val;
-            $val = "{$val} {$key}";
-        });
-
-        return $array;
-	}
-
-	/**
 	 * General message handling that outputs to the log, slack and directly to the stream
 	 * 
 	 * @param  string $message 
@@ -71,7 +54,11 @@ class BaseModel extends Model {
 		$message = '`[' . strtoupper(app('env')) . ']` ' . $message;
 		$messageClean = str_replace('`', '', $message);
 
-		\Slack::send($message);
+		try {
+			\Slack::send($message);
+		} catch (\Exception $e) {
+			print $e->getMessage();
+		}
 		
 		try {
 			\Log::warning($messageClean);
