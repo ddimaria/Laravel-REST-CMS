@@ -10,10 +10,32 @@ use Validator;
 
 class UserController extends ApiGuardController
 {
+    /**
+     * The name of the model to use for this package
+     * 
+     * @var string
+     */
     protected $modelName = 'App\LaravelRestCms\User\User';
+    
+    /**
+     * The name of the transformer to use for this package
+     * 
+     * @var string
+     */
     protected $transformerName = 'App\LaravelRestCms\User\UserTransformer';
+    
+    /**
+     * The key to use as a key for this collection in the output
+     * 
+     * @var string
+     */
     protected $collectionName = 'users';
 
+    /**
+     * The methods that don't require api authentication
+     * 
+     * @var array
+     */
     protected $apiMethods = [
         'authenticate' => [
             'keyAuthentication' => false
@@ -23,6 +45,11 @@ class UserController extends ApiGuardController
         ]
     ];
 
+    /**
+     * Authenticate the login
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function authenticate() 
     {
         $credentials['username'] = Input::get('username');
@@ -72,6 +99,11 @@ class UserController extends ApiGuardController
         return $this->response->withItem($user, new \App\LaravelRestCms\User\UserTransformer);
     }
 
+    /**
+     * Retrieve the user model
+     * 
+     * @return Model
+     */
     public function getUserDetails() 
     {
         $user = $this->apiKey->user;
@@ -79,6 +111,12 @@ class UserController extends ApiGuardController
         return isset($user) ? $user : $this->response->errorNotFound();
     }
 
+    /**
+     * Log the user out
+     * 
+     * @param  string $apiKey
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deauthenticate($apiKey) 
     {
         $this->apiKey = ApiKey::where('key', $apiKey)->first();

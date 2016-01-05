@@ -27,6 +27,7 @@ class User extends Model {
 
 	/**
 	 * Valiadate a user's login
+	 * 
 	 * @param  string $username 
 	 * @param  string $password 
 	 * @return Model           
@@ -36,6 +37,12 @@ class User extends Model {
 		return $this->where('username', $username)->where('password', $password)->get();
 	}
 
+	/**
+	 * Relationship to the api_key table
+	 * 
+	 * @codeCoverageIgnore
+	 * @return Illuminate\Database\Eloquent\Relations\HasOne
+	 */
 	public function apiKey()
 	{
 		return $this->hasOne('App\LaravelRestCms\ApiKey\ApiKey', 'user_id');

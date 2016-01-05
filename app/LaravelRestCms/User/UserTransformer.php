@@ -12,7 +12,13 @@ class UserTransformer extends TransformerAbstract {
     protected $availableIncludes = [
     ];
 
-    public function transform( $user)
+    /**
+     * Transforms a User model
+     * 
+     * @param  User $user
+     * @return array
+     */
+    public function transform(User $user)
     {
         return [
             'id'     => (int) @$user->id,
