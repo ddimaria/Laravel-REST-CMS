@@ -13,6 +13,9 @@ matrix:
 install:
   - travis_retry composer install --no-interaction --prefer-source
 
+before_script:
+  - composer self-update
+
 script:
   - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
 
