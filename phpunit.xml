@@ -21,8 +21,8 @@
         <env name="QUEUE_DRIVER" value="sync"/>
     </php>
     <filter>
-        <blacklist>
-              <directory>./vendor</directory>
-        </blacklist>
+        <whitelist>
+              <directory>./app/LaravelRestCms</directory>
+        </whitelist>
     </filter>
 </phpunit>
