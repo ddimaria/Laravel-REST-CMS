@@ -10,8 +10,11 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
+        <testsuite name="unit">
+            <directory>./tests/unit/</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory>./tests/functional/</directory>
         </testsuite>
     </testsuites>
     <php>
@@ -22,6 +25,7 @@
     </php>
     <filter>
         <whitelist>
+              <directory>./app/Httpd/Controllers/API</directory>
               <directory>./app/LaravelRestCms</directory>
         </whitelist>
     </filter>
