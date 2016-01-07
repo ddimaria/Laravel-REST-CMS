@@ -2,8 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Pluralizer;
+use Illuminate\Support\Singular;
 
-class BaseModel extends Model {
+abstract class BaseModel extends Model {
 
 	use CacheTrait;
 	use ValidatesRequests;
@@ -37,26 +39,19 @@ class BaseModel extends Model {
 	 */
 	protected $validation;
 
-	
 	/**
-	 * Validates a model
+	 * Rules to validate when creating a model
 	 * 
-	 * @param  array  	$data     
-	 * @param  boolean 	$isUpdate 
-	 * @return boolean            
+	* @var array
 	 */
-	public function validate($data, $isUpdate = false)
-	{
-		if ($isUpdate) {
-			$rules = static::$updateRules;
-		} else {
-			$rules = static::$createRules;
-		}
+	protected static $createRules;
 
-		$this->validation = \Validator::make($data, $rules);
-		
-		return $this->validation->passes();
-	}
+	/**
+	 * Rules to validate when updating a model
+	 * 
+	* @var array
+	 */
+	protected static $updateRules;
 	
 	/**
 	 * Gets the table name of the model.
@@ -78,7 +73,7 @@ class BaseModel extends Model {
 	public function getSingular($format = false)
 	{
 		if (!isset($this->singular)) {
-			$this->singular = \Pluralizer::singular($this->table);
+			$this->singular = Pluralizer::singular($this->table);
 		}
 
 		return $format ? $this->formatTableName($this->singular) : $this->singular;
@@ -93,7 +88,7 @@ class BaseModel extends Model {
 	public function getPlural($format = false)
 	{
 		if (!isset($this->plural)) {
-			$this->plural = \Pluralizer::plural($this->table);
+			$this->plural = Pluralizer::plural($this->table);
 		}
 
 		return $format ? $this->formatTableName($this->plural) : $this->plural;
@@ -105,8 +100,28 @@ class BaseModel extends Model {
 	 * @param  string $name
 	 * @return string
 	 */
-	public static function formatTableName($name)
+	protected static function formatTableName($name)
 	{
 		return ucwords(str_replace('_', ' ', $name));
+	}
+	
+	/**
+	 * Validates a model
+	 * 
+	 * @param  array  	$data     
+	 * @param  boolean 	$isUpdate 
+	 * @return boolean            
+	 */
+	protected function validate($data, $isUpdate = false)
+	{
+		if ($isUpdate) {
+			$rules = static::$updateRules;
+		} else {
+			$rules = static::$createRules;
+		}
+
+		$this->validation = \Validator::make($data, $rules);
+		
+		return $this->validation->passes();
 	}
 }
