@@ -12,32 +12,38 @@ trait CacheTrait {
      * The
      * @var [type]
      */
-    public static $cacheTime; 
+    public static $cacheTime = '3600'; 
         
     
     /**
      * Tie caching features into the Eloquent::boot() method
      */
-    public static function boot()
+    public static function bootCacheTrait()
     {
-        parent::boot();
-        
-        self::$cacheTime = \Config::get('laravel-rest-cms.cacheTime');
-        
+        static::$cacheTime = \Config::get('laravel-rest-cms.cacheTime');
+        static::savedEvent();
+        static::deletingEvent();        
+    }
+
+    protected static function savedEvent()
+    {
         static::saved(function($model)
         {
             $model::cache($model, $model->{$model::$cacheKeyPart}, $model::getModelCache($model));
 
             return true;
         });
-        
+    }
+
+    protected static function deletingEvent()
+    {
         static::deleting(function($model)
         {
-           \Cache::forget($model::getCacheKey());
+           \Cache::forget($model::getCacheKey($model));
             
             return true;
         });
-    }   
+    }
 
     /**
      * Retrieves the model
@@ -54,26 +60,47 @@ trait CacheTrait {
     /**
      * Caches a model
      * 
-     * @param  string                       $model      The name of the model
-     * @param  string                       $keyPart    The key to use to cache the model (e.g. primary key)
-     * @param  App\LaravelRestCms\BaseModel $data       The model instance
+     * @param  string   $model      The name of the model
+     * @param  string   $keyPart    The key to use to cache the model (e.g. primary key)
+     * @param  App\LaravelRestCms\BaseModel $data   The model instance
      * @return string
      */
     public static function cache($model, $keyPart, $data)
     {
-        $key = $model::getCacheKey($keyPart);
+        $key = static::getCacheKey($model, $keyPart);
         \Cache::forget($key);
         \Cache::put($key, $data, static::$cacheTime);
         
         return $model;
+    }       
+    
+    /**
+     * Caches a model
+     * 
+     * @param  string   $model      The name of the model
+     * @param  string   $keyPart    The key to use to cache the model (e.g. primary key)
+     * @return string
+     */
+    public static function getCache($model, $keyPart)
+    {
+        $key = static::getCacheKey($model, $keyPart);
+        
+        return \Cache::get($key);
     }
     
-    public static function getCacheKey($keyPart = null)
+    /**
+     * Gets the cache key for a model
+     * 
+     * @param  string   $model      The name of the model
+     * @param  string   $keyPart    The key to use to cache the model (e.g. primary key)
+     * @return string
+     */
+    public static function getCacheKey($model, $keyPart = null)
     {
         if (is_null($keyPart)) {
             $keyPart = static::$cacheKeyPart;
         }
-
-        return with(new static)->getTable() . '.' . $keyPart;
+        
+        return with(new $model)->getTable() . '.' . $keyPart;
     }
 }
