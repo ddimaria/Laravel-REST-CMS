@@ -10,11 +10,15 @@ matrix:
     - php: 7
     - php: hhvm
 
+services:
+  - mysql
+
 install:
   - travis_retry composer install --no-interaction --prefer-source
 
 before_script:
-  - mysql -e 'create database laravel-rest-cms;'
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  - mysql -e 'create database IF NOT EXISTS laravel-rest-cms;' -uroot
   - composer self-update
 
 script:
