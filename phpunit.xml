@@ -29,4 +29,7 @@
               <directory>./app/LaravelRestCms</directory>
         </whitelist>
     </filter>
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener" file="vendor/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php"></listener>
+    </listeners>
 </phpunit>
