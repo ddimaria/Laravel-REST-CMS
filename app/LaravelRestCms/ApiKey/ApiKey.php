@@ -3,9 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ApiKey extends Model {
-
-	use SoftDeletes;
+class ApiKey extends \Chrisbjr\ApiGuard\Models\ApiKey {
 
 	/**
 	 * The database table used by the model.
