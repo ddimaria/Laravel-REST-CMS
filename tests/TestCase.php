@@ -30,6 +30,23 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      */
     protected $requiresToken = true;
 
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->resetEvents();
+    }
+
+
+	/**
+	 * Standard tearDown method
+	 */
+    public function tearDown()
+    {
+        Mockery::close();
+    }
+
+
 	/**
 	 * Creates the application.
 	 *
@@ -114,4 +131,19 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 	    return $method->invokeArgs($object, $parameters);
 	}
+
+	private function resetEvents(){
+        // Define the models that have event listeners.
+        $models = ['App\LaravelRestCms\User\User'];
+
+        // Reset their event listeners.
+        foreach ($models as $model) {
+
+            // Flush any existing listeners.
+            call_user_func(array($model, 'flushEventListeners'));
+
+            // Reregister them.
+            call_user_func(array($model, 'boot'));
+        }
+    }
 }
