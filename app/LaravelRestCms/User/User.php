@@ -1,8 +1,10 @@
 <?php namespace App\LaravelRestCms\User;
 
-use Illuminate\Database\Eloquent\Model;
+use App\LaravelRestCms\BaseModel;
 
-class User extends Model {
+class User extends BaseModel {
+
+	public static $searchCols = ['first_name', 'last_name'];
 
 	/**
 	 * The database table used by the model.
