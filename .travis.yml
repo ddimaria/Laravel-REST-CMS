@@ -12,6 +12,9 @@ services:
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
+  - chmod -R 777 app/storage
+  - php artisan migrate --env=testing --no-interaction -vvv
+  - php artisan db:seed --env=testing --no-interaction -vvv
 
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
