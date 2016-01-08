@@ -18,8 +18,8 @@ install:
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - mysql -e 'create database IF NOT EXISTS `laravel-rest-cms`;' -uroot -proot
-  - php artisan migrate --env=testing --no-interaction -vvv
-  - php artisan db:seed --env=testing --no-interaction -vvv
+  - php artisan migrate --no-interaction -vvv
+  - php artisan db:seed --no-interaction -vvv
 
 script:
   - if [[ "$COLLECT_COVERAGE" == "true" ]]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
