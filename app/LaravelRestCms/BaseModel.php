@@ -8,9 +8,9 @@ use Illuminate\Support\Singular;
 abstract class BaseModel extends Model {
 
 	use CacheTrait;
+	use SearchTrait;
 	use ValidatesRequests;
 
-	
 	/**
 	 * The table name
 	 * 
