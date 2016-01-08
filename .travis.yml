@@ -14,6 +14,13 @@ install:
   - composer self-update
   - travis_retry composer install --no-interaction --prefer-source
   - chmod -R 777 storage
+  - travis/install-nginx.sh
+
+addons:
+  apt:
+    packages:
+      - nginx
+      - realpath
 
 before_script:
   - mv .env.travis .env
