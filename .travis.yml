@@ -16,6 +16,7 @@ install:
   - chmod -R 777 storage
 
 before_script:
+  - mv .env.travis .env
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - mysql -e 'create database IF NOT EXISTS `laravel-rest-cms`;' -uroot -proot
   - php artisan migrate --no-interaction -vvv
