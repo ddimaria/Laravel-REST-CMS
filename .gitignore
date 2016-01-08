@@ -1,7 +1,7 @@
 /vendor
 /node_modules
 /bootstrap/compiled.php
-/build/*
+/build/*.zip
 composer.phar
 composer.lock
 .env.*.php
