@@ -12,6 +12,7 @@ services:
 
 install:
   - composer self-update
+  - composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
   - travis_retry composer install --no-interaction --prefer-source
   - chmod -R 777 storage
   - travis/install-nginx.sh
@@ -29,8 +30,12 @@ before_script:
   - php artisan migrate --no-interaction -vvv
   - php artisan db:seed --no-interaction -vvv
 
+after_script:
+  - php vendor/bin/coveralls -v
+
 script:
-  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
+  - mkdir -p build/logs
+  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=build/logs/clover.xml; else vendor/bin/phpunit --no-coverage; fi
 
 after_failure: 
   - "cat /home/travis/build/ddimaria/laravel-rest-cms/npm-debug.log"
