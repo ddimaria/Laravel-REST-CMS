@@ -29,8 +29,8 @@ before_script:
   - php artisan migrate --no-interaction -vvv
   - php artisan db:seed --no-interaction -vvv
 
-#script:
-#  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
+script:
+  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
 
 after_failure: 
-  - "cat /home/travis/builds/ddimaria/laravel-rest-cms/npm-debug.log"
+  - "cat /home/travis/build/ddimaria/laravel-rest-cms/npm-debug.log"
