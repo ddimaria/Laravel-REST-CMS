@@ -1,7 +1,12 @@
 <?php
 
+use App\LaravelRestCms\User\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	
+	use DatabaseTransactions;
+
 	/**
      * The api path to use
      *
@@ -24,6 +29,13 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     protected $token;
 
 	/**
+     * The user to use for most tests
+     *
+     * @var App\LaravelRestCms\User\User
+     */
+    protected $user;
+
+	/**
      * The auth token
      *
      * @var bool
@@ -37,7 +49,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $this->resetEvents();
     }
 
-
 	/**
 	 * Standard tearDown method
 	 */
@@ -45,7 +56,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         Mockery::close();
     }
-
 
 	/**
 	 * Creates the application.
@@ -91,9 +101,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	 */
 	public function login()
 	{
-		$response = $this->call('POST', static::$apiPath . '/user/login', ['username' => 'a', 'password' => 'a']);
+		if (is_null($this->user)) {
+
+			$this->user = factory(App\LaravelRestCms\User\User::class)->make();  
+			$this->user->save();
+		}
 		
-		print json_decode($response);
+		$response = $this->call('POST', static::$apiPath . '/user/login', ['username' => $this->user->username, 'password' => $this->user->password]);
+		
 		$token = json_decode($response->getContent())->data->api_key;
 		$this->session(['token' => $token]);
 
