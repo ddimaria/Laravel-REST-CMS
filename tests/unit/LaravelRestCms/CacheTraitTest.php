@@ -16,7 +16,6 @@ class CacheTraitTest extends TestCase {
         parent::setUp();
 
         $this->model = $this->getMockForTrait($this->traitlName);
-        $this->user = factory(App\LaravelRestCms\User\User::class)->make();  
     }
 
     public function testBoot()
@@ -26,6 +25,8 @@ class CacheTraitTest extends TestCase {
 
     public function testSavedEvent()
     {
+        $this->user = factory(App\LaravelRestCms\User\User::class)->make();  
+
         \Cache::shouldReceive('forget')
             ->once()
             ->with(Mockery::any());
@@ -40,16 +41,12 @@ class CacheTraitTest extends TestCase {
 
     public function testDeletingEvent()
     {
+        $this->user = User::all()->first();  
+
         \Cache::shouldReceive('forget')
-            ->twice()
+            ->once()
             ->with(Mockery::any());
 
-        \Cache::shouldReceive('put')
-            ->once()
-            ->with(Mockery::any(), $this->user, Mockery::any())
-            ->andReturn(true);
-        
-        $this->user->save();
         $this->user->delete();
     }
 
