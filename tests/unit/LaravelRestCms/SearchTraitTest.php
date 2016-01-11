@@ -23,6 +23,10 @@ class SearchTraitTest extends TestCase {
 		$expected = 'select * from `users` where (`first_name` like ? or `last_name` like ?)';
     	
     	$this->assertEquals($expected, $model->toSql());
+
+    	User::$searchCols = null;
+    	$model = $this->model->addSearch(null, 'a');
+    	$this->assertEquals($expected, $model->toSql());
     }
 
     public function testGetSearchCols()
