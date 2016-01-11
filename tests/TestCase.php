@@ -1,12 +1,9 @@
 <?php
 
 use App\LaravelRestCms\User\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	
-	use DatabaseTransactions;
-
 	/**
      * The api path to use
      *
@@ -46,7 +43,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     {
         parent::setUp();
         
-        $this->resetEvents();
+        //$this->resetEvents();
     }
 
 	/**
@@ -103,8 +100,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	{
 		if (is_null($this->user)) {
 
-			$this->user = factory(App\LaravelRestCms\User\User::class)->make();  
-			$this->user->save();
+			$this->user = User::all()->first(); 
 		}
 		
 		$response = $this->call('POST', static::$apiPath . '/user/login', ['username' => $this->user->username, 'password' => $this->user->password]);

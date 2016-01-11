@@ -2,11 +2,8 @@
 
 use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\User\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchTraitTest extends TestCase {
-
-	use DatabaseTransactions;
 
 	protected $traitlName = 'App\LaravelRestCms\SearchTrait';
 	protected $modelName = 'App\LaravelRestCms\User\User';
