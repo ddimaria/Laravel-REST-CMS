@@ -31,3 +31,6 @@ before_script:
 
 #script:
 #  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
+
+after_failure: 
+  - "cat /home/travis/builds/ddimaria/laravel-rest-cms/npm-debug.log"
