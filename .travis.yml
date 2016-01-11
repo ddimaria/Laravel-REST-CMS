@@ -29,5 +29,5 @@ before_script:
   - php artisan migrate --no-interaction -vvv
   - php artisan db:seed --no-interaction -vvv
 
-script:
-  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi
+#script:
+#  - if [ "$COLLECT_COVERAGE" == "true" ]; then vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover; else vendor/bin/phpunit --no-coverage; fi

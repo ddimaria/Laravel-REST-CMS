@@ -93,6 +93,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	{
 		$response = $this->call('POST', static::$apiPath . '/user/login', ['username' => 'a', 'password' => 'a']);
 		
+		print "***here***";
 		print json_decode($response->getContent());
 		$token = json_decode($response->getContent())->data->api_key;
 		$this->session(['token' => $token]);
