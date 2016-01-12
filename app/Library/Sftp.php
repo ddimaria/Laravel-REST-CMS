@@ -54,7 +54,7 @@ class Sftp
 			if ($this->isValidExtension($val['filename'])) {
 				$files[] = [
                     'fileName' => $val['filename'], 
-                    'fullFileName' => $dir . '/' .$val['filename'],
+                    'fullFileName' => $dir . '/' . $val['filename'],
                     'size' => $val['size'],
                     'modified' => gmdate("m/d/Y H:i:s", $val['mtime']),
                 ];
@@ -155,6 +155,6 @@ class Sftp
      */
     protected function isValidExtension($fileName)
     {
-    	return substr(strrchr($fileName,'.'),1) === 'xml' || substr(strrchr($fileName,'.'),1) === 'err';
+    	return substr(strrchr($fileName, '.'), 1) === 'xml' || substr(strrchr($fileName, '.'), 1) === 'err';
     }
 }
