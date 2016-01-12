@@ -22,8 +22,6 @@ class Generic extends BaseCommand {
 
 	/**
 	 * Create a new command instance.
-	 *
-	 * @return void
 	 */
 	public function __construct()
 	{
