@@ -20,7 +20,7 @@ class CallRoute extends Command {
 
     public function fire()
     {
-        $request = Request::create($this->option('uri'), 'GET');
+        $request = Request::create((string)$this->option('uri'), 'GET');
         $request->headers->set('X-Authorization', $this->option('token'));
         $this->info(strip_tags(
         	app()['Illuminate\Contracts\Http\Kernel']->handle($request)
