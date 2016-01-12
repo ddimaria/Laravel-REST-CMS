@@ -21,10 +21,10 @@ class UserTransformer extends TransformerAbstract {
     public function transform(User $user)
     {
         return [
-            'id'     => (int) @$user->id,
-            'first_name' => @$user->first_name,
-            'last_name' => @$user->last_name,
-            'api_key' => @$user->apiKey->key,
+            'id'     => (int) $user->id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'api_key' => $user->apiKey->key,
             'version' => \Config::get('laravel-rest-cms.version'),
         ];
     }
