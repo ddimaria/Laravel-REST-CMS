@@ -25,7 +25,9 @@ class SearchTraitTest extends TestCase {
     	$this->assertEquals($expected, $model->toSql());
 
     	User::$searchCols = null;
-    	$model = $this->model->addSearch('a', User::$labelCol);
+    	User::$labelCol = null;
+    	$model = $this->model->addSearch('a');
+		$expected = 'select * from `users`';
     	$this->assertEquals($expected, $model->toSql());
     }
 
