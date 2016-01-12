@@ -1,10 +1,11 @@
 # Larevel REST CMS
 A Laravel 5 based REST Server for Content Management
 
-[![Latest Version](https://img.shields.io/github/release/ddimaria/Laravel-REST-CMS.svg?style=flat-square)](https://github.com/ddimaria/Laravel-REST-CMS/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/ddimaria/Laravel-REST-CMS/master.svg?style=flat-square)](https://travis-ci.org/ddimaria/Laravel-REST-CMS)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ddimaria/Laravel-REST-CMS/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ddimaria/Laravel-REST-CMS/?branch=master)
 [![Coverage Status](https://coveralls.io/repos/ddimaria/Laravel-REST-CMS/badge.svg?branch=master&service=github)](https://coveralls.io/github/ddimaria/Laravel-REST-CMS?branch=master)
+[![Latest Version](https://img.shields.io/github/release/ddimaria/Laravel-REST-CMS.svg?style=flat-square)](https://github.com/ddimaria/Laravel-REST-CMS/releases)
 
 This package complies with [PSR-1], [PSR-2] and [PSR-4].
 
