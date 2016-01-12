@@ -2,10 +2,9 @@
 
 use Closure;
 
-use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Http\Response;
 
-class Cors implements Middleware {
+class Cors {
 
 	 /**
 	  * Handle an incoming request.
