@@ -52,6 +52,19 @@ abstract class BaseModel extends Model {
 	* @var array
 	 */
 	protected static $updateRules;
+
+	/**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::savedEvent();
+        static::deletingEvent();
+    }	 
 	
 	/**
 	 * Gets the table name of the model.
@@ -63,6 +76,36 @@ abstract class BaseModel extends Model {
 	{
 		return $this->table;
 	}
+
+    /**
+     * Hooks into the "saved" event
+     * 
+     * @return void
+     */
+    protected static function savedEvent()
+    {
+        static::saved(function($model)
+        {
+            static::addToCache($model);
+
+            return true;
+        });
+    }
+
+    /**
+     * Hooks into the "deleting" event
+     * 
+     * @return void
+     */
+    protected static function deletingEvent()
+    {
+        static::deleting(function($model)
+        {
+           static::removeFromCache($model);
+
+            return true;
+        });
+    }
 	
 	/**
 	 * Retrieves the singular name of the table

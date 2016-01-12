@@ -21,28 +21,28 @@ trait CacheTrait {
     public static function bootCacheTrait()
     {
         static::$cacheTime = \Config::get('laravel-rest-cms.cacheTime');
-        static::savedEvent();
-        static::deletingEvent();        
     }
 
-    protected static function savedEvent()
+    /**
+     * Adds a model to the cache
+     * 
+     * @param  string   $model      The name of the model
+     * @return void
+     */
+    protected static function addToCache($model)
     {
-        static::saved(function($model)
-        {
-            $model::cache($model, $model->{$model::$cacheKeyPart}, $model::getModelCache($model));
-
-            return true;
-        });
+        $model::cache($model, $model->{$model::$cacheKeyPart}, $model::getModelCache($model));
     }
 
-    protected static function deletingEvent()
+    /**
+     * Removes a model from the cache
+     * 
+     * @param  string   $model      The name of the model
+     * @return void
+     */
+    protected static function removeFromCache($model)
     {
-        static::deleting(function($model)
-        {
-           \Cache::forget($model::getCacheKey($model));
-            
-            return true;
-        });
+        \Cache::forget($model::getCacheKey($model));
     }
 
     /**
