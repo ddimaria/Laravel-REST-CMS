@@ -15,6 +15,6 @@
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 {
 	// users/auth
-    Route::post('user/login', 'UserController@authenticate');
-    Route::get('user/logout/{api_key}', 'UserController@deauthenticate');
+	Route::post('user/login', 'UserController@authenticate');
+	Route::get('user/logout/{api_key}', 'UserController@deauthenticate');
 });

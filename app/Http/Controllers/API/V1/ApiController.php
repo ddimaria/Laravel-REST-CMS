@@ -60,7 +60,7 @@ abstract class ApiController extends ApiGuardController
      */
     public function __construct()
     {
-        $this->response =  \Response::api();
+        $this->response = \Response::api();
         
         if (!empty($this->modelName)) {
             $this->model = new $this->modelName;

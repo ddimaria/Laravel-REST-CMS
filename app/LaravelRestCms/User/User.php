@@ -43,7 +43,7 @@ class User extends BaseModel {
 	 * Relationship to the api_key table
 	 * 
 	 * @codeCoverageIgnore
-	 * @return Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
 	public function apiKey()
 	{
