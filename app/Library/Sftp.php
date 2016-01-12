@@ -126,13 +126,14 @@ class Sftp
     /**
      * Retrieves a listing from directory
      * 
-     * @param  string   $dir 
+     * @param  string   $remoteFileFrom 
+     * @param  string   $remoteFileTo 
      * @return boolean  success
      */
     public function rename($remoteFileFrom, $remoteFileTo)
     {
         $conn = $this->getConnection();
-        //print $conn->getSFTPLog();;
+        //print $conn->getSFTPLog();
         return $conn->rename($remoteFileFrom, $remoteFileTo);
     }
 
