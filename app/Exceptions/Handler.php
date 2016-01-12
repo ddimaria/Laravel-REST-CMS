@@ -24,17 +24,6 @@ class Handler extends ExceptionHandler {
 	 */
 	public function report(Exception $e)
 	{
-		/*
-		try {
-            \Mail::send('emails.error-general', ['message' => $e], function($message)
-            {
-                $message->to(\Config::get('laravel-rest-cms.emailError'))->subject('Error!');
-            });
-        } catch(\Exception $e) {
-            print_r($e->getMessage());
-        }
-        */
-
 		return parent::report($e);
 	}
 
