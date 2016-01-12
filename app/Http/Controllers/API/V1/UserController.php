@@ -48,12 +48,14 @@ class UserController extends ApiGuardController
     /**
      * Authenticate the login
      * 
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse|Illuminate\Contracts\Routing\ResponseFactory
      */
     public function authenticate() 
     {
-        $credentials['username'] = Input::get('username');
-        $credentials['password'] = Input::get('password');
+        $credentials = [
+            'username' => Input::get('username'),
+            'password' => Input::get('password'),
+        ];
         
         $validator = Validator::make([
                 'username' => $credentials['username'],

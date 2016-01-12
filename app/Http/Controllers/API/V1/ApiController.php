@@ -75,8 +75,6 @@ abstract class ApiController extends ApiGuardController
         if (\Input::get('include') != '') {
             $this->manager = new \League\Fractal\Manager;
             $this->manager->parseIncludes(explode(',', \Input::get('include')));
-
-            //print_r($this->manager);exit;
         }
 
         parent::__construct();
@@ -85,7 +83,7 @@ abstract class ApiController extends ApiGuardController
     /**
      * Create an item
      * 
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create($data = null)
     {   
