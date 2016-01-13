@@ -8,19 +8,19 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
+use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
 abstract class ApiController extends ApiGuardController
 {
     /**
      * Laraponse object, which abstracts Fractal
      * 
-     * @var EllipseSynergie\ApiResponse\Laravel\Response
+     * @var \EllipseSynergie\ApiResponse\Laravel\Response
      */
     public $response;
     
     /**
-     * The string name of the Eloquen Model
+     * The string name of the Eloquent Model
      * 
      * @var string
      */
@@ -29,7 +29,7 @@ abstract class ApiController extends ApiGuardController
     /**
      * The Eloquent Model
      * 
-     * @var Illuminate\Database\Eloquent\Model
+     * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model;
     

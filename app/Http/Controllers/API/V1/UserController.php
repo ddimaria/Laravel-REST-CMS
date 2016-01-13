@@ -48,7 +48,7 @@ class UserController extends ApiGuardController
 	/**
 	 * Authenticate the login
 	 * 
-	 * @return \Illuminate\Http\JsonResponse|Illuminate\Contracts\Routing\ResponseFactory
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Routing\ResponseFactory
 	 */
 	public function authenticate() 
 	{
