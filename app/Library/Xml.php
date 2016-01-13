@@ -62,8 +62,8 @@ class Xml
 	 * Converts an xml string into a SimpleXml object
 	 * 
 	 * @param  string $xml 
-	 * @return SimpleXml
-	 */
+	 * @return \SimpleXMLElement
+     */
 	public function toXml($xml, $namespace = null)
 	{       
 		$xml = $xml ?: $this->xml;
@@ -82,7 +82,7 @@ class Xml
 
 	/**
 	 * Get an array of attributes from an XML node
-	 * @param  SimpleXMLElement $node 
+	 * @param  \SimpleXMLElement  $node
 	 * @return array
 	 */
 	public static function attributes($node)

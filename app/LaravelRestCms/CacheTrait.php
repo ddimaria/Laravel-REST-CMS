@@ -62,7 +62,7 @@ trait CacheTrait {
 	 * 
 	 * @param  string   $model      The name of the model
 	 * @param  string   $keyPart    The key to use to cache the model (e.g. primary key)
-	 * @param  App\LaravelRestCms\BaseModel $data   The model instance
+	 * @param  \App\LaravelRestCms\BaseModel $data   The model instance
 	 * @return string
 	 */
 	public static function cache($model, $keyPart, $data)

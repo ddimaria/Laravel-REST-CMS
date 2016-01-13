@@ -32,7 +32,7 @@ class User extends BaseModel {
 	 * 
 	 * @param  string $username 
 	 * @param  string $password 
-	 * @return Model           
+	 * @return \App\LaravelRestCms\BaseModel
 	 */
 	public function authenticate($username, $password)
 	{

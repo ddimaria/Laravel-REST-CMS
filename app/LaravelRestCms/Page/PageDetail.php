@@ -1,18 +1,18 @@
-<?php namespace App\LaravelRestCms\Template;
+<?php namespace App\LaravelRestCms\Page;
 
 use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\Template\TemplateDetail;
 
-class Template extends BaseModel {
+class PageDetail extends BaseModel {
 
-	public static $searchCols = ['name', 'class'];
+	public static $searchCols = ['data'];
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'templates';
+	protected $table = 'page_detail';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -31,11 +31,11 @@ class Template extends BaseModel {
 	/**
 	 * Joins the page_detail table
 	 * 
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
 	 */
-	public function detail()
+	public function templateDetail()
     {
-        return $this->hasMany(TemplateDetail::class, 'template_id', 'id');
+        return $this->hasMany(TemplateDetail::class, 'id', 'template_detail_id');
     }
-    
+
 }

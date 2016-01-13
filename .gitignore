@@ -12,3 +12,4 @@ composer.lock
 Thumbs.db
 coverage.clover
 --coverage-clover=coverage.clover/*
+.phpstorm.meta.php

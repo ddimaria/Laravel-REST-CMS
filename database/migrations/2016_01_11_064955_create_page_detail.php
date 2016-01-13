@@ -20,14 +20,10 @@ class CreatePageDetail extends Migration
             $table->string('data', 1000);
             $table->integer('group')->unsigned()->default(0);
             $table->integer('version')->unsigned()->default(0);
-            $table->integer('created_by')->unsigned();
-            $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('page_id')->references('id')->on('pages');
             $table->foreign('template_detail_id')->references('id')->on('template_detail');
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 
@@ -38,6 +34,11 @@ class CreatePageDetail extends Migration
      */
     public function down()
     {
+        Schema::table('page_detail', function (Blueprint $table) {
+            $table->dropForeign('page_detail_page_id_foreign');
+            $table->dropForeign('page_detail_template_detail_id_foreign');
+        });
+
         Schema::drop('page_detail');
     }
 

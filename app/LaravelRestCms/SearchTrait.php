@@ -10,7 +10,7 @@ trait SearchTrait {
 	 *         
 	 * @param string $keyword
 	 * @param string $labelCol
-	 * @return \BaseModel
+	 * @return \App\LaravelRestCms\BaseModel
 	 */
 	public function addSearch($keyword = null, $labelCol = null)
 	{
@@ -57,11 +57,11 @@ trait SearchTrait {
 	/**
 	 * Eloquent scope of the search
 	 * 
-	 * @param  Illuminate\Database\Eloquent\Builder $query
+	 * @param  \App\LaravelRestCms\BaseModel $query
 	 * @param  string $keyword
-	 * @return Illuminate\Database\Eloquent\Builder
+	 * @return \Illuminate\Database\Eloquent\Builder
 	 */
-	public function scopeSearch($query, $keyword = null) 
+	public function scopeSearch(\App\LaravelRestCms\BaseModel $query, $keyword = null)
 	{        
 		$searchCols = $this->getSearchCols(null, static::$labelCol);
 		$query->select('*', implode(' ', static::$labelCol) .  ' as label', 'url');

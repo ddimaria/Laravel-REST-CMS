@@ -11,6 +11,7 @@ class TemplateDetailTableSeeder extends Seeder {
         DB::table('template_detail')->delete();
 
         TemplateDetail::create(['parent_id' => null, 'template_id' => 1, 'name' => 'Main Content', 'description' => null, 'var' => 'main_content', 'type' => 'wysiwyg', 'data' => null]);
+        TemplateDetail::create(['parent_id' => null, 'template_id' => 1, 'name' => 'Sub Content', 'description' => null, 'var' => 'main_content', 'type' => 'wysiwyg', 'data' => null]);
     }
 
 }
