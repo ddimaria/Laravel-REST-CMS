@@ -41,11 +41,12 @@ class CacheTraitTest extends TestCase {
 
     public function testDeletingEvent()
     {
-        $this->user = User::all()->first();  
+        $this->user = factory(App\LaravelRestCms\User\User::class)->make(); 
+        $this->user->save();
 
         \Cache::shouldReceive('forget')
             ->once()
-            ->with(Mockery::any());
+            ->with('users.id');
 
         $this->user->delete();
     }
