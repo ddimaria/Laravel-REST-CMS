@@ -1,6 +1,7 @@
 <?php namespace App\LaravelRestCms\Template;
 
 use App\LaravelRestCms\BaseModel;
+use App\LaravelRestCms\Template\TemplateDetail;
 
 class Template extends BaseModel {
 
@@ -27,4 +28,14 @@ class Template extends BaseModel {
 	 */
 	protected $hidden = [];
 
+	/**
+	 * Joins the page_detail table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function detail()
+    {
+        return $this->hasMany(TemplateDetail::class, 'template_id', 'id');
+    }
+    
 }
