@@ -18,20 +18,6 @@ class PageTransformer extends BaseTransformer {
 		'template',
 	];
 
-	/**
-	 * Transforms a Page model
-	 * 
-	 * @param  \App\LaravelRestCms\BaseModel $page
-	 * @return array
-	 */
-	public function transform(BaseModel $page)
-	{
-		return [
-			'id'     => (int) $page->id,
-			'title' => $page->title,
-		];
-	}
-
     /**
      * Include Page Detail
      * 
