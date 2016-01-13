@@ -23,10 +23,14 @@ class CreatePagesTable extends Migration
             $table->string('title', 250);
             $table->integer('sort')->unsigned()->default(9999999);
             $table->timestamps();
+            $table->integer('created_by')->unsigned();
+            $table->integer('updated_by')->unsigned()->nullable();
 
             $table->foreign('parent_id')->references('id')->on('pages');
             $table->foreign('template_id')->references('id')->on('templates');
-            $table->foreign('seo_id')->references('id')->on('seo');
+            $table->foreign('seo_id')->references('id')->on('seo')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 
@@ -41,6 +45,8 @@ class CreatePagesTable extends Migration
             $table->dropForeign('pages_parent_id_foreign');
             $table->dropForeign('pages_template_id_foreign');
             $table->dropForeign('pages_seo_id_foreign');
+            $table->dropForeign('pages_created_by_foreign');
+            $table->dropForeign('pages_updated_by_foreign');
         });
 
         Schema::drop('pages');
