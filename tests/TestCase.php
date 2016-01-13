@@ -157,5 +157,27 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
             // Reregister them.
             call_user_func(array($model, 'boot'));
         }
+    }   
+
+    public function relationship(App\LaravelRestCms\BaseModel $model, App\LaravelRestCms\BaseModel $related, $relatedName, $pk, $fk)
+    {
+        $modelCount = $model->{$relatedName}()->count();
+        $relatedCount = $related::where($fk, $model->{$pk})->count();
+
+        return ($modelCount == $relatedCount);
+    }
+
+    public function transformerCollection(App\LaravelRestCms\BaseModel $model, App\LaravelRestCms\BaseTransformer $transformer, $methodName)
+    {
+    	$collection = with($transformer)->{$methodName}($model);
+        
+        return $collection instanceof League\Fractal\Resource\Collection;
+    }
+
+    public function transformGeneric(App\LaravelRestCms\BaseModel $model, App\LaravelRestCms\BaseTransformer $transformer)
+    {
+        $transformed = Mockery::mock($transformer)->transform($model);
+        
+        return ($model->getAttributes() == $transformed);
     }
 }
