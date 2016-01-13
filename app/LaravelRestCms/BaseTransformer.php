@@ -3,7 +3,7 @@
 use App\LaravelRestCms\BaseModel;
 use League\Fractal\TransformerAbstract;
 
-abstract class BaseTransformer extends TransformerAbstract {
+class BaseTransformer extends TransformerAbstract {
 
 	/**
 	 * List of resources possible to include
