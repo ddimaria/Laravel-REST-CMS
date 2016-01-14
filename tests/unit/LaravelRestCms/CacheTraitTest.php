@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CacheTraitTest extends TestCase {
 
-	use DatabaseTransactions;
+	//use DatabaseTransactions;
 
 	protected $traitlName = 'App\LaravelRestCms\CacheTrait';
 	protected $modelName = 'App\LaravelRestCms\User\User';
@@ -25,30 +25,38 @@ class CacheTraitTest extends TestCase {
 
     public function testSavedEvent()
     {
-        $this->user = factory(App\LaravelRestCms\User\User::class)->make();  
+        DB::transaction(function () {
+            $user = factory(App\LaravelRestCms\User\User::class)->make();  
 
-        \Cache::shouldReceive('forget')
-            ->once()
-            ->with(Mockery::any());
-        
-        \Cache::shouldReceive('put')
-            ->once()
-            ->with(Mockery::any(), $this->user, Mockery::any())
-            ->andReturn(true);
+            \Cache::shouldReceive('forget')
+                ->once()
+                ->with(Mockery::any());
+                
+            \Cache::shouldReceive('put')
+                ->once()
+                ->with(Mockery::any(), $user, Mockery::any())
+                ->andReturn(true);
 
-        $this->user->save();
+            $user->save();
+
+            DB::rollBack();
+        });
     }
 
     public function testDeletingEvent()
     {
-        $this->user = factory(App\LaravelRestCms\User\User::class)->make(); 
-        $this->user->save();
+        DB::transaction(function () {
+            $user = factory(App\LaravelRestCms\User\User::class)->make(); 
+            $user->save();
+            
+            \Cache::shouldReceive('forget')
+                ->once()
+                ->with('users.id');
 
-        \Cache::shouldReceive('forget')
-            ->once()
-            ->with('users.id');
+            $user->delete();
 
-        $this->user->delete();
+            DB::rollBack();
+        });
     }
 
     public function testGetModelCache()
