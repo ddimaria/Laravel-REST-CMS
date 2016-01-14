@@ -20,4 +20,5 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 
 	// page
 	Route::get('page/{id}', 'PageController@show');
+	Route::post('page', 'PageController@create');
 });
