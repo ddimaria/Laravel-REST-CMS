@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\LaravelRestCms\ApiInterface;
-
+use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-
-use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
 abstract class ApiController extends ApiGuardController implements ApiInterface
 {
@@ -83,22 +82,26 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     }
 
     /**
-     * Create an item
-     * 
+     * Creates an item
+     *
+     * @param \Illuminate\Http\Request $data
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create($data = null)
+    public function create(Request $data = null)
     {   
-        $data = $data ?: \Input::json()->all();
+        $data = $data ?: \Input::json();
+        $json = $data->all();
 
         try {
-            $this->model->validate($data);
-            $item = $this->model->create($data);
+            $this->model->validate($json);
+            $item = $this->model->create($json);
             
             return $this->showByObject($item);
         
         } catch (ValidationException $e) {
             return $this->response->setStatusCode(422)->withError($e->errors()->toArray(), 'GEN-UNPROCESSABLE-ENTITY');
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(422)->withError($e->getMessage(), 'GEN-UNPROCESSABLE-ENTITY');
         }
     }
 
