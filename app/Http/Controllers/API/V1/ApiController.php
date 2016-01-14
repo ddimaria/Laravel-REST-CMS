@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\LaravelRestCms\ApiInterface;
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Foundation\Bus\DispatchesCommands;
@@ -10,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
 
-abstract class ApiController extends ApiGuardController
+abstract class ApiController extends ApiGuardController implements ApiInterface
 {
     /**
      * Laraponse object, which abstracts Fractal

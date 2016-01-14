@@ -1,6 +1,6 @@
 <?php namespace App\LaravelRestCms;
 
-interface AbstractInterface
+interface ApiInterface
 {
 	public function show($id);
 	public function collection();
