@@ -62,7 +62,7 @@ class Xml
 	 * Converts an xml string into a SimpleXml object
 	 * 
 	 * @param  string $xml 
-	 * @return \SimpleXMLElement
+	 * @return \SimpleXMLElement|false
      */
 	public function toXml($xml, $namespace = null)
 	{       
