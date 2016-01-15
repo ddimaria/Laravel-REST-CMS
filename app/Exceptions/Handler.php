@@ -24,6 +24,17 @@ class Handler extends ExceptionHandler {
 	 */
 	public function report(Exception $e)
 	{
+		// some quick data about the error for local development
+		if (\App::environment('local')) {
+			
+			die(
+				"File: " . $e->getFile() . 
+				"\nLine: " . $e->getLine() . 
+				"\nMessage: " . $e->getMessage()  . 
+				"\n\nTrace:\n" . substr($e->getTraceAsString(), 0, 5000)
+			);
+		}
+
 		return parent::report($e);
 	}
 
