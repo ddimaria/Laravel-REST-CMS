@@ -9,7 +9,8 @@ use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Singular;
 
 /**
- * Class Builder
+ * Class BaseModel
+ * 
  * @method \Illuminate\Database\Query\Builder whereIn(string $column, mixed $values, string $boolean, bool $not)
  */
 abstract class BaseModel extends Model {
@@ -96,8 +97,8 @@ abstract class BaseModel extends Model {
     }	 
 	
 	/**
-	 * Gets the table name of the model.
-	 * Override this for custom names to be used in the caching engine.
+	 * Gets the table name of the model
+	 * Override this for custom names to be used in the caching engine
 	 * 
 	 * @return string
 	 */
