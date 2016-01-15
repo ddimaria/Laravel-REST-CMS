@@ -4,7 +4,7 @@ use App\LaravelRestCms\BaseModel;
 
 class User extends BaseModel {
 
-	public static $searchCols = ['first_name', 'last_name'];
+	public static $searchCols = ['first_name', 'last_name', 'email', 'username'];
 
 	/**
 	 * The database table used by the model.
@@ -18,7 +18,7 @@ class User extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['first_name', 'last_name'];
+	protected $fillable = ['first_name', 'last_name', 'email', 'username'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -26,6 +26,21 @@ class User extends BaseModel {
 	 * @var array
 	 */
 	protected $hidden = [];
+
+	/**
+	 * Rules to validate when creating a model
+	 * 
+	* @var array
+	 */
+	protected static $createRules = [	
+		'first_name' => 'required',
+		'last_name' => 'required',
+		'email' => 'required|email|unique:users',
+		'username' => 'required|unique:users',
+		'password' => 'required',
+		//'created_by' => 'integer',
+		//'updated_by' => 'integer',
+	];
 
 	/**
 	 * Valiadate a user's login

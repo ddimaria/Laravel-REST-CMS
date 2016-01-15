@@ -20,7 +20,7 @@ class Page extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $fillable = [];
+	protected $fillable = ['parent_id', 'template_id', 'nav_name', 'url', 'title', 'created_by', 'updated_by'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -28,6 +28,28 @@ class Page extends BaseModel {
 	 * @var array
 	 */
 	protected $hidden = [];
+
+	/**
+	 * Rules to validate when creating a model
+	 * 
+	* @var array
+	 */
+	protected static $createRules = [	
+		'parent_id' => 'integer',
+		'template_id' => 'integer',
+		'nav_name' => 'required',
+		'url' => 'required|unique:pages',
+		'title' => 'required',
+		'created_by' => 'integer',
+		'updated_by' => 'integer',
+	];
+
+	/**
+	 * Indicates if the model should be attributed with created_by and updated_by
+	 * 
+	* @var bool
+	 */
+	public $attirbution = true;
 
 	/**
 	 * Joins the page_detail table

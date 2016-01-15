@@ -1,7 +1,9 @@
 <?php namespace App\LaravelRestCms;
 
+use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Singular;
 
@@ -28,30 +30,48 @@ abstract class BaseModel extends Model {
 	/**
 	 * The plural version of the table name
 	 * 
-	* @var string
+	 * @var string
 	 */
 	protected $plural;
 
 	/**
 	 * The Validator object
 	 * 
-	* @var \Validator
+	 * @var \Validator
 	 */
 	protected $validation;
 
 	/**
 	 * Rules to validate when creating a model
 	 * 
-	* @var array
+	 * @var array
 	 */
 	protected static $createRules;
 
 	/**
 	 * Rules to validate when updating a model
 	 * 
-	* @var array
+	 * @var array
 	 */
 	protected static $updateRules;
+
+	/**
+	 * Rules to validate when updating a model, which concatenates with static::$createRules
+	 * Overide this if using different PKs
+	 * Ignored if static::$updateRules is populated
+	 * 
+	 * @var array
+	 */
+	protected static $updateRulesConcat = [	
+		'id' => 'required|integer'
+	];
+
+	/**
+	 * Indicates if the model should be attributed with created_by and updated_by
+	 * 
+	 * @var bool
+	 */
+	public $attirbution = false;
 
 	/**
      * The "booting" method of the model.
@@ -60,7 +80,11 @@ abstract class BaseModel extends Model {
      */
     protected static function boot()
     {
-        parent::boot();
+        if (!is_null(static::$updateRules) && !is_null(static::$updateRulesConcat) && sizeof(static::$updateRulesConcat)) {
+	        static::$updateRules = static::$createRules + static::$updateRulesConcat; 
+	    }
+
+	    parent::boot();
 
         static::savedEvent();
         static::deletingEvent();
@@ -155,7 +179,7 @@ abstract class BaseModel extends Model {
 	 * @param  boolean 	$isUpdate 
 	 * @return boolean            
 	 */
-	protected function validate($data, $isUpdate = false)
+	public function validate($data, $isUpdate = false)
 	{
 		if ($isUpdate) {
 			$rules = static::$updateRules;
@@ -163,8 +187,16 @@ abstract class BaseModel extends Model {
 			$rules = static::$createRules;
 		}
 
+		if (is_null($rules)) {
+			throw new \Exception(new MessageBag('Could not find ' . ($isUpdate ? 'update' : 'create') . ' rules for ' . get_class($this)));
+		}
+
 		$this->validation = \Validator::make($data, $rules);
 		
-		return $this->validation->passes();
+		if (!$this->validation->passes()) {
+			throw new ValidationException(new MessageBag($this->validation->errors()->all()));
+		}
+
+		return true;
 	}
 }

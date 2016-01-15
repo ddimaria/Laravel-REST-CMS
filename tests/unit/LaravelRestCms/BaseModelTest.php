@@ -61,6 +61,9 @@ class BaseModelTest extends TestCase {
 		$this->assertTrue($valid);
 	}
 
+	/**
+	 * @expectedException \Illuminate\Contracts\Validation\ValidationException
+	 */
 	public function testValidateInsertInvalid()
 	{
 		$data = [
@@ -69,8 +72,6 @@ class BaseModelTest extends TestCase {
 
 		$this->setPrivateProperty($this->model, 'createRules', $this->rules);
 		$valid = $this->invokeMethod($this->model, 'validate', [$data]);
-
-		$this->assertFalse($valid);
 	}
 
 	public function testValidateUpdate()
@@ -86,6 +87,9 @@ class BaseModelTest extends TestCase {
 		$this->assertTrue($valid);
 	}
 
+	/**
+	 * @expectedException \Illuminate\Contracts\Validation\ValidationException
+	 */
 	public function testValidateUpdateInvalid()
 	{
 		$data = [
@@ -94,8 +98,19 @@ class BaseModelTest extends TestCase {
 
 		$this->setPrivateProperty($this->model, 'updateRules', $this->rules);
 		$valid = $this->invokeMethod($this->model, 'validate', [$data, true]);
+	}
 
-		$this->assertFalse($valid);
+	/**
+	 * @expectedException \Exception
+	 */
+	public function testValidateNoRules()
+	{
+		$data = [
+			'col_1' => 'a',
+		];
+
+		$this->setPrivateProperty($this->model, 'updateRules', null);
+		$valid = $this->invokeMethod($this->model, 'validate', [$data, true]);
 	}
 
 }
