@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\LaravelRestCms\ApiInterface;
 use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\ValidationException;
 use Illuminate\Foundation\Bus\DispatchesCommands;
@@ -91,18 +92,36 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     {   
         $data = $data ?: \Input::json();
         $json = $data->all();
+        $json = $this->addAttribution($json);
 
         try {
             $this->model->validate($json);
             $item = $this->model->create($json);
-            
             return $this->showByObject($item);
         
         } catch (ValidationException $e) {
-            return $this->response->setStatusCode(422)->withError($e->errors()->toArray(), 'GEN-UNPROCESSABLE-ENTITY');
-        } catch (\Exception $e) {
+            return $this->response->setStatusCode(422)->withError($e->errors()->all(), 'GEN-UNPROCESSABLE-ENTITY');
+        } catch (MassAssignmentException $e) {
+            return $this->response->setStatusCode(422)->withError("Cannot mass assign " . $e->getMessage(), 'GEN-UNPROCESSABLE-ENTITY');
+        }  catch (\Exception $e) {
             return $this->response->setStatusCode(422)->withError($e->getMessage(), 'GEN-UNPROCESSABLE-ENTITY');
         }
+    }
+
+    /**
+     * Adds created_by and updated_by to the array if the model supports it
+     *
+     * @param array $data
+     * @return array $data
+     */
+    protected function addAttribution(array $data)
+    {   
+        if ($this->model->attirbution) {
+            $data['created_by'] = $this->apiKey->user_id;
+            $data['updated_by'] = $this->apiKey->user_id;
+        }
+
+        return $data;
     }
 
     /**
