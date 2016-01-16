@@ -12,14 +12,14 @@ class PageController extends ApiController
 	 * 
 	 * @var string
 	 */
-	protected $modelName = 'App\LaravelRestCms\Page\Page';
+	protected $modelName = \App\LaravelRestCms\Page\Page::class;
     
 	/**
 	 * The name of the transformer to use for this package
 	 * 
 	 * @var string
 	 */
-	protected $transformerName = 'App\LaravelRestCms\Page\PageTransformer';
+	protected $transformerName = \App\LaravelRestCms\Page\PageTransformer::class;
     
 	/**
 	 * The key to use as a key for this collection in the output
@@ -27,5 +27,21 @@ class PageController extends ApiController
 	 * @var string
 	 */
 	protected $collectionName = 'pages';
+
+    /**
+     * Returns a page and associated detail and template data
+     * 
+     * @param  int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showWithDetail($id)
+    {        
+        $this->manager->parseIncludes([
+        	'detail',
+        	'detail.template_detail',
+        ]);
+
+        return $this->show($id);
+    }
 
 }
