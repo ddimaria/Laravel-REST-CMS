@@ -63,7 +63,6 @@ class Generic extends BaseCommand {
 	protected function getOptions()
 	{
 		return [
-		//	['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
 		];
 	}
 

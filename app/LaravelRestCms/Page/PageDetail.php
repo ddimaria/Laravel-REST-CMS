@@ -19,7 +19,7 @@ class PageDetail extends BaseModel {
 	 *
 	 * @var array
 	 */
-	protected $fillable = [];
+	protected $fillable = ['page_id', 'template_detail_id', 'data'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -27,6 +27,17 @@ class PageDetail extends BaseModel {
 	 * @var array
 	 */
 	protected $hidden = [];
+
+	/**
+	 * Rules to validate when creating a model
+	 * 
+	* @var array
+	 */
+	protected static $createRules = [	
+		'page_id' => 'integer',
+		'template_detail_id' => 'integer',
+		'data' => 'required',
+	];
 
 	/**
 	 * Joins the page_detail table

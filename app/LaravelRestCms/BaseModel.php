@@ -1,12 +1,18 @@
 <?php namespace App\LaravelRestCms;
 
 use Illuminate\Contracts\Validation\ValidationException;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Singular;
 
+/**
+ * Class BaseModel
+ * 
+ * @method \Illuminate\Database\Query\Builder whereIn(string $column, mixed $values, string $boolean, bool $not)
+ */
 abstract class BaseModel extends Model {
 
 	use CacheTrait;
@@ -91,8 +97,8 @@ abstract class BaseModel extends Model {
     }	 
 	
 	/**
-	 * Gets the table name of the model.
-	 * Override this for custom names to be used in the caching engine.
+	 * Gets the table name of the model
+	 * Override this for custom names to be used in the caching engine
 	 * 
 	 * @return string
 	 */

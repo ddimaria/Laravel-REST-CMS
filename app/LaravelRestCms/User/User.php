@@ -62,7 +62,7 @@ class User extends BaseModel {
 	 */
 	public function apiKey()
 	{
-		return $this->hasOne('App\LaravelRestCms\ApiKey\ApiKey', 'user_id');
+		return $this->hasOne(\App\LaravelRestCms\ApiKey\ApiKey::class, 'user_id');
 	} 
 
 }

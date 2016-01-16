@@ -15,14 +15,14 @@ class UserController extends ApiGuardController
 	 * 
 	 * @var string
 	 */
-	protected $modelName = 'App\LaravelRestCms\User\User';
+	protected $modelName = \App\LaravelRestCms\User\User::class;
     
 	/**
 	 * The name of the transformer to use for this package
 	 * 
 	 * @var string
 	 */
-	protected $transformerName = 'App\LaravelRestCms\User\UserTransformer';
+	protected $transformerName = \App\LaravelRestCms\User\UserTransformer::class;
     
 	/**
 	 * The key to use as a key for this collection in the output
@@ -78,8 +78,7 @@ class UserController extends ApiGuardController
 			return $this->response->errorUnauthorized("Your username or password is incorrect");
 		}
 
-		// We have validated this user
-		// Assign an API key for this session
+		// User validated, now assign an api key for this session
 		$apiKey = ApiKey::where('user_id', '=', $user->id)->first();
         
 		if (!isset($apiKey)) {
@@ -96,8 +95,7 @@ class UserController extends ApiGuardController
 			return $this->response->errorInternalError("Failed to create an API key. Please try again.");
 		}
 
-
-		// We have an API key.. i guess we only need to return that.
+		// return api key
 		return $this->response->withItem($user, new \App\LaravelRestCms\User\UserTransformer);
 	}
 
