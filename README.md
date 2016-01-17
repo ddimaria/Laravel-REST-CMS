@@ -24,29 +24,127 @@ This package complies with [PSR-1], [PSR-2] and [PSR-4].
 ## Installation
 After ensuring that you meet the above requirements, follow the below procedures for installing Laravel REST CMS
 
-###Clone this repo
-```bash
+### Clone this repo
+```shell
 $ git clone https://github.com/ddimaria/Laravel-REST-CMS.git laravel-rest-cms
 $ cd laravel-rest-cms
 ```
 
-###Run Composer
+### Run Composer
 This assumes you have composer installed and configured to run globally.  For assistance, visit https://getcomposer.org/download/
 ```shell
 $ composer install
 ```
 This creates a /vendor directory and will pull in dependenies. 
 
-###Folder Permissions
+### Folder Permissions
 ```shell
 $ find storage/* -type d -exec chmod 775 {} \;
 ```
-## Testing
 
-``` bash
+### Migrate the Database
+```shell
+$ php artisan migrate
+```
+
+### Seed the Database
+```shell
+$ php artisan db:seed
+```
+
+
+## Testing
+### Basic
+``` shell
 $ phpunit
+```
+
+### With Coverage HTML
+``` shell
+$ phpunit --coverage-html --coverage-clover=coverage.clover
+```
+
+
+## Packages
+
+### API Approach
+This system uses the [thephpleague/fractal](https://github.com/thephpleague/fractal) component, which is "a presentation and transformation layer for complex data output."  This provides a solid foundation for relating models, transforming data, pagination responses and standardizing input parameters.
+
+### Responses
+Responses are sent using the [ellipsesynergie/api-response](https://github.com/ellipsesynergie/api-response) package.  This ties into Fractal's Manager object for simplifying and standardizing responses.
+
+### Authentication
+The system implements token-based authetication with the [chrisbjr/api-guard](https://github.com/chrisbjr/api-guard) component.  This nifty package plays well with Fractal and Api-Response, and fully abstracts authentication, token generation and maintenence, api rate limiting, access levels, method-level access and full api logging.
+
+### Pagination
+When returning data for collection-based endpoints, results are paginated, 15 per page.
+```json
+"meta": {
+    "pagination": {
+        "total": 150,
+        "count": 15,
+        "per_page": 15,
+        "current_page": 3,
+        "total_pages": 10,
+        "links": {
+            "previous": "https://localhost/api/v1/pages/?page=2",
+            "next": "https://localhost/api/v1/pages/?page=4"
+        }
+    }
+}
+```
+
+### Errors
+404 responses are returned with a 404 status code and a "Not found!" JSON response:
+```json
+{
+    "error": {
+        "message": "Not found!",
+        "status_code": 404
+    }
+}
+```
+
+## Usage
+
+###Logging In
+```POST /app/v1/user/login```
+
+#### POST
+```json
+{
+	"username": "admin", 
+	"password": "123"
+}
+```
+
+#### Response:
+```json
+{
+  "data": {
+    "id": 1,
+    "first_name": "Admin",
+    "last_name": "User",
+    "api_key": "7fa1949b94f9000f4bb558709aee106f8c0d042c",
+    "version": "version: 1.0.3"
+  }
+}
+```
+
+###Logging Out
+```GET /app/v1/user/logout/{api_key}```
+
+#### Response
+```json
+{
+  "ok": {
+    "code": "SUCCESSFUL",
+    "http_code": 200,
+    "message": "User was successfuly deauthenticated"
+  }
+}
 ```
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/thephpleague/fractal/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/ddimaria/Laravel-REST-CMS/blob/master/LICENSE) for more information.
