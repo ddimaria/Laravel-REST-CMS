@@ -107,9 +107,8 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
 
 ## Usage
 
-###Logging In
+### Logging In
 ```POST /app/v1/user/login```
-
 #### POST
 ```json
 {
@@ -117,7 +116,6 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
 	"password": "123"
 }
 ```
-
 #### Response:
 ```json
 {
@@ -131,9 +129,8 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
 }
 ```
 
-###Logging Out
+### Logging Out
 ```GET /app/v1/user/logout/{api_key}```
-
 #### Response
 ```json
 {
@@ -141,6 +138,108 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
     "code": "SUCCESSFUL",
     "http_code": 200,
     "message": "User was successfuly deauthenticated"
+  }
+}
+```
+
+### Simple Page
+```GET /app/v1/page/{id}```
+#### Response
+```json
+{
+  "data": {
+    "id": 1,
+    "parent_id": null,
+    "template_id": 1,
+    "seo_id": null,
+    "nav_name": "Home",
+    "url": "home",
+    "title": "Home Page",
+    "sort": 1,
+    "created_at": "2016-01-13 07:57:48",
+    "updated_at": "2016-01-13 07:57:48",
+    "created_by": 1,
+    "updated_by": null
+  }
+}
+```
+
+### Page data, including page_detail and template_detail joins
+```GET /app/v1/page/{id}/detail```
+#### Response
+```json
+{
+  "data": {
+    "id": 1,
+    "parent_id": null,
+    "template_id": 1,
+    "seo_id": null,
+    "nav_name": "Home",
+    "url": "home",
+    "title": "Home Page",
+    "sort": 1,
+    "created_at": "2016-01-13 07:57:48",
+    "updated_at": "2016-01-13 07:57:48",
+    "created_by": 1,
+    "updated_by": null,
+    "detail": {
+      "data": [
+        {
+          "id": 1,
+          "page_id": 1,
+          "template_detail_id": 1,
+          "data": "First page content",
+          "group": 0,
+          "version": 0,
+          "created_at": "2016-01-13 07:57:48",
+          "updated_at": "2016-01-13 07:57:48",
+          "template_detail": {
+            "data": [
+              {
+                "id": 1,
+                "parent_id": null,
+                "template_id": 1,
+                "name": "Main Content",
+                "description": null,
+                "var": "main_content",
+                "type": "wysiwyg",
+                "data": null,
+                "sort": 9999999,
+                "created_at": "2016-01-13 07:57:48",
+                "updated_at": "2016-01-13 07:57:48"
+              }
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "page_id": 1,
+          "template_detail_id": 2,
+          "data": "First page sub-content",
+          "group": 0,
+          "version": 0,
+          "created_at": "2016-01-13 07:57:48",
+          "updated_at": "2016-01-13 07:57:48",
+          "template_detail": {
+            "data": [
+              {
+                "id": 2,
+                "parent_id": null,
+                "template_id": 1,
+                "name": "Sub Content",
+                "description": null,
+                "var": "main_content",
+                "type": "wysiwyg",
+                "data": null,
+                "sort": 9999999,
+                "created_at": "2016-01-13 07:57:48",
+                "updated_at": "2016-01-13 07:57:48"
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
 }
 ```
