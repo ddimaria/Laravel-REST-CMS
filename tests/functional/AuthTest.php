@@ -6,13 +6,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AuthTest extends TestCase {
 
+	use DatabaseTransactions;
+	
 	/**
 	 * Login, do this first
 	 *
      * @covers App\Http\Controllers\Api\V1\UserController::authenticate
      * @covers App\LaravelRestCms\User\User::authenticate
      * @covers App\LaravelRestCms\User\UserTransformer::transform
-	 * @return void
 	 */
 	public function testLogin()
 	{
@@ -28,7 +29,6 @@ class AuthTest extends TestCase {
 	 * Logout
 	 *
      * @covers App\Http\Controllers\Api\V1\UserController::deauthenticate
-	 * @return void
 	 */
 	public function testLogout()
 	{
