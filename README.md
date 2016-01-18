@@ -60,14 +60,15 @@ $ phpunit
 ```
 
 ### With Coverage HTML
+The testing goal is 100% covearge of non-vendor, non-laravel code.
 ``` shell
 $ phpunit --coverage-html --coverage-clover=coverage.clover
 ```
 
 
-## Packages
+## Packages and General Processes
 
-### API Approach
+### API Design
 This system uses the [thephpleague/fractal](https://github.com/thephpleague/fractal) component, which is "a presentation and transformation layer for complex data output."  This provides a solid foundation for relating models, transforming data, pagination responses and standardizing input parameters.
 
 ### Responses
@@ -94,7 +95,7 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
 }
 ```
 
-### Errors
+### Error Responses
 404 responses are returned with a 404 status code and a "Not found!" JSON response:
 ```json
 {
@@ -104,6 +105,9 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
     }
 }
 ```
+
+### Caching
+All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelRestCms\CacheTrait in which are cached when saved.
 
 ## Usage
 
@@ -159,7 +163,7 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
     "created_at": "2016-01-13 07:57:48",
     "updated_at": "2016-01-13 07:57:48",
     "created_by": 1,
-    "updated_by": null
+    "updated_by": 1
   }
 }
 ```
@@ -181,7 +185,7 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
     "created_at": "2016-01-13 07:57:48",
     "updated_at": "2016-01-13 07:57:48",
     "created_by": 1,
-    "updated_by": null,
+    "updated_by": 1,
     "detail": {
       "data": [
         {
@@ -203,8 +207,8 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
                 "description": null,
                 "var": "main_content",
                 "type": "wysiwyg",
-                "data": null,
-                "sort": 9999999,
+                "data": "Hello world",
+                "sort": 1,
                 "created_at": "2016-01-13 07:57:48",
                 "updated_at": "2016-01-13 07:57:48"
               }
@@ -228,10 +232,10 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
                 "template_id": 1,
                 "name": "Sub Content",
                 "description": null,
-                "var": "main_content",
+                "var": "sub_content",
                 "type": "wysiwyg",
-                "data": null,
-                "sort": 9999999,
+                "data": "Sub content here",
+                "sort": 2,
                 "created_at": "2016-01-13 07:57:48",
                 "updated_at": "2016-01-13 07:57:48"
               }
