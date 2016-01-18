@@ -49,6 +49,11 @@ $ cp .env.example to .env
 ```
 After this file copy, update the attributes in .env to match your environment, database, and mail configurations.
 
+### Create a Unique Encryption Key
+```shell
+$ php artisan key:generate
+```
+
 ### Migrate the Database
 ```shell
 $ php artisan migrate
