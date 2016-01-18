@@ -42,6 +42,13 @@ This creates a /vendor directory and will pull in dependenies.
 $ find storage/* -type d -exec chmod 775 {} \;
 ```
 
+### Environment Configuration
+```shell
+$ cp .env.example to .env
+
+```
+After this file copy, update the attributes in .env to match your environment, database, and mail configurations.
+
 ### Migrate the Database
 ```shell
 $ php artisan migrate
