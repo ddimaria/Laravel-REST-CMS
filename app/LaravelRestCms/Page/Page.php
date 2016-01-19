@@ -35,13 +35,8 @@ class Page extends BaseModel {
 	* @var array
 	 */
 	protected static $createRules = [	
-		'parent_id' => 'integer',
-		'template_id' => 'integer',
-		'nav_name' => 'required',
-		'url' => 'required|unique:pages',
-		'title' => 'required',
-		'created_by' => 'integer',
-		'updated_by' => 'integer',
+		'name' => 'required|unique:templates',
+		'layout' => 'required',
 	];
 
 	/**
@@ -49,7 +44,7 @@ class Page extends BaseModel {
 	 * 
 	* @var bool
 	 */
-	public $attirbution = true;
+	public $attirbution = false;
 
 	/**
 	 * Joins the page_detail table
