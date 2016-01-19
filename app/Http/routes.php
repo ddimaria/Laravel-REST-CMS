@@ -24,4 +24,11 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 	Route::get('page/{id}/detail', 'PageController@showWithDetail');
 	Route::get('pagedetail/{id}', 'PageDetailController@show');
 	Route::post('pagedetail', 'PageDetailController@create');
+
+	// template
+	Route::get('template/{id}', 'TemplateController@show');
+	Route::post('template', 'TemplateController@create');
+	Route::get('template/{id}/detail', 'TemplateController@showWithDetail');
+	Route::get('templatedetail/{id}', 'TemplateDetailController@show');
+	Route::post('templatedetail', 'TemplateDetailController@create');
 });
