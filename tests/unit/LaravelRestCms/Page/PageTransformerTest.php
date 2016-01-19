@@ -3,7 +3,7 @@
 use App\LaravelRestCms\Page\Page;
 use App\LaravelRestCms\Page\PageTransformer;
 
-class PagTransformerTest extends TestCase {
+class PageTransformerTest extends TestCase {
 
 	public function setUp()
     {
