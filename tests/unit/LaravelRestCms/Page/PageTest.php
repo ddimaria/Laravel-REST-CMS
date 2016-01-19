@@ -26,4 +26,11 @@ class PageTest extends TestCase {
             $this->relationship($this->model, new Template, 'template', 'template_id', 'id')
         );
     }
+
+    public function testParent()
+    {
+        $this->assertTrue(
+            $this->relationship($this->model, new Page, 'parent', 'parent_id', 'id')
+        );
+    }
 }
