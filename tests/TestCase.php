@@ -176,8 +176,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     public function transformGeneric(App\LaravelRestCms\BaseModel $model, App\LaravelRestCms\BaseTransformer $transformer)
     {
-        $transformed = Mockery::mock($transformer)->transform($model);
+        //$transformed = Mockery::mock($transformer)->transform($model);
+        $collection = with($transformer)->transform($model);
         
-        return ($model->getAttributes() == $transformed);
+        return is_array($collection) && count($collection);
     }
 }
