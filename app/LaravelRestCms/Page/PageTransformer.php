@@ -16,6 +16,7 @@ class PageTransformer extends BaseTransformer {
 	protected $availableIncludes = [
 		'detail',
 		'template',
+        'parent',
 	];
 
     /**
@@ -56,5 +57,16 @@ class PageTransformer extends BaseTransformer {
     public function includeTemplate(Page $page)
     {
         return $this->collection($page->template, new TemplateTransformer);
+    }
+
+    /**
+     * Include Page Parent
+     * 
+     * @param \App\LaravelRestCms\Page\Page
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeParent(Page $page)
+    {
+        return $this->collection($page->parent, new PageTransformer);
     }
 }
