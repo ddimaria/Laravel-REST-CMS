@@ -19,6 +19,24 @@ class PageTransformer extends BaseTransformer {
 	];
 
     /**
+     * Transforms a Page model
+     * 
+     * @param  Page $page
+     * @return array
+     */
+    public function transform(BaseModel $page)
+    {
+        return [
+            'id' => (int) $page->id,
+            'parent_id' => (int)$page->parent_id,
+            'template_id' => $page->template_id,
+            'nav_name' => $page->nav_name,
+            'url' => $page->url,
+            'title' => $page->title,
+        ];
+    }
+
+    /**
      * Include Page Detail
      * 
      * @param \App\LaravelRestCms\Page\Page
