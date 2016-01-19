@@ -12,6 +12,13 @@ class PageDetailTransformerTest extends TestCase {
         $this->model = PageDetail::first();
     }
 
+    public function testTransform()
+    {
+        $this->assertTrue(
+            $this->transformGeneric($this->model, new PageDetailTransformer)
+        );
+    }
+
     public function testIncludeTemplateDetail()
     {   
         $this->assertTrue(
