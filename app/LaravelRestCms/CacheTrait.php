@@ -4,15 +4,17 @@ trait CacheTrait {
 
 	/**
 	 * The key to use to cache this model
+	 * 
 	 * @var string
 	 */
 	public static $cacheKeyPart = 'id';
     
 	/**
-	 * The
-	 * @var [type]
+	 * The number of minutes to cache
+	 * 
+	 * @var int
 	 */
-	public static $cacheTime = '3600'; 
+	public static $cacheTime = 3600; 
         
     
 	/**
