@@ -1,5 +1,6 @@
 <?php namespace App\LaravelRestCms\User;
 
+use App\LaravelRestCms\BaseModel;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract {
@@ -15,10 +16,10 @@ class UserTransformer extends TransformerAbstract {
 	/**
 	 * Transforms a User model
 	 * 
-	 * @param  User $user
+	 * @param  \App\LaravelRestCms\BaseModel $user
 	 * @return array
 	 */
-	public function transform(User $user)
+	public function transform(BaseModel $user)
 	{
 		return [
 			'id'     => (int) $user->id,
