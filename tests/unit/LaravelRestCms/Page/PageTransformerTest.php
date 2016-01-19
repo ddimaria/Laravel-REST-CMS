@@ -32,4 +32,11 @@ class PageTransformerTest extends TestCase {
             $this->transformerCollection($this->model, new PageTransformer, 'includeTemplate')
         );
     }
+
+    public function testIncludeParent()
+    {   
+        $this->assertTrue(
+            $this->transformerCollection($this->model, new PageTransformer, 'includeParent')
+        );
+    }
 }
