@@ -40,4 +40,14 @@ class TemplateDetail extends BaseModel {
 		'info' => 'Info Box (Backend Only)',
 	];
 
+	/**
+	 * Joins the parent table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
+	 */
+	public function parent()
+    {
+        return $this->hasMany(TemplateDetail::class, 'id', 'parent_id');
+    }
+
 }
