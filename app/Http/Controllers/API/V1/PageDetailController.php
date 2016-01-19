@@ -26,6 +26,6 @@ class PageDetailController extends ApiController
 	 * 
 	 * @var string
 	 */
-	protected $collectionName = 'detail';
+	protected $collectionName = 'page_detail';
 
 }
