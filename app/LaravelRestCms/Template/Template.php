@@ -29,6 +29,21 @@ class Template extends BaseModel {
 	protected $hidden = [];
 
 	/**
+	 * Rules to validate when creating a model
+	 * 
+	* @var array
+	 */
+	protected static $createRules = [	
+		'parent_id' => 'integer',
+		'template_id' => 'integer',
+		'nav_name' => 'required',
+		'url' => 'required|unique:pages',
+		'title' => 'required',
+		'created_by' => 'integer',
+		'updated_by' => 'integer',
+	];
+
+	/**
 	 * Joins the page_detail table
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
