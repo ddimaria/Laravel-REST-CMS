@@ -71,4 +71,14 @@ class Page extends BaseModel {
         return $this->hasMany(Template::class, 'id', 'template_id');
     }
 
+	/**
+	 * Joins the pages table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
+	 */
+	public function parent()
+    {
+        return $this->hasMany(Page::class, 'id', 'parent_id');
+    }
+
 }
