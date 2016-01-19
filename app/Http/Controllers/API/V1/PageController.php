@@ -37,8 +37,10 @@ class PageController extends ApiController
     public function showWithDetail($id)
     {        
         $this->manager->parseIncludes([
+        	'parent',
         	'detail',
         	'detail.template_detail',
+        	'detail.template_detail.parent',
         ]);
 
         return $this->show($id);
