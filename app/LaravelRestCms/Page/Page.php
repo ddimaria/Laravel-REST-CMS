@@ -35,13 +35,8 @@ class Page extends BaseModel {
 	* @var array
 	 */
 	protected static $createRules = [	
-		'parent_id' => 'integer',
-		'template_id' => 'integer',
-		'nav_name' => 'required',
-		'url' => 'required|unique:pages',
-		'title' => 'required',
-		'created_by' => 'integer',
-		'updated_by' => 'integer',
+		'name' => 'required|unique:templates',
+		'layout' => 'required',
 	];
 
 	/**
@@ -49,7 +44,7 @@ class Page extends BaseModel {
 	 * 
 	* @var bool
 	 */
-	public $attirbution = true;
+	public $attirbution = false;
 
 	/**
 	 * Joins the page_detail table
@@ -69,6 +64,16 @@ class Page extends BaseModel {
 	public function template()
     {
         return $this->hasMany(Template::class, 'id', 'template_id');
+    }
+
+	/**
+	 * Joins the pages table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
+	 */
+	public function parent()
+    {
+        return $this->hasMany(Page::class, 'id', 'parent_id');
     }
 
 }

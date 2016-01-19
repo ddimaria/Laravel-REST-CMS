@@ -194,7 +194,7 @@ abstract class BaseModel extends Model {
 		}
 
 		if (is_null($rules)) {
-			throw new \Exception(new MessageBag('Could not find ' . ($isUpdate ? 'update' : 'create') . ' rules for ' . get_class($this)));
+			throw new \Exception(new MessageBag(['Could not find ' . ($isUpdate ? 'update' : 'create') . ' rules for ' . get_class($this)]));
 		}
 
 		$this->validation = \Validator::make($data, $rules);

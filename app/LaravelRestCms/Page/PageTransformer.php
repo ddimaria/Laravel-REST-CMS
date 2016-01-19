@@ -2,11 +2,14 @@
 
 use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\BaseTransformer;
+use App\LaravelRestCms\HierarchyTransformerTrait;
 use App\LaravelRestCms\Page\Page;
 use App\LaravelRestCms\Page\PageDetailTransformer;
 use App\LaravelRestCms\Template\TemplateTransformer;
 
 class PageTransformer extends BaseTransformer {
+
+    use HierarchyTransformerTrait;
 
 	/**
 	 * List of resources possible to include
@@ -17,6 +20,31 @@ class PageTransformer extends BaseTransformer {
 		'detail',
 		'template',
 	];
+
+    /**
+     * The transformer of the parent (usually itself)
+     * 
+     * @var string
+     */
+    protected $parentTransformer = self::class;
+
+    /**
+     * Transforms a Page model
+     * 
+     * @param  \App\LaravelRestCms\BaseModel $page
+     * @return array
+     */
+    public function transform(BaseModel $page)
+    {
+        return [
+            'id' => (int) $page->id,
+            'parent_id' => (int)$page->parent_id,
+            'template_id' => (int) $page->template_id,
+            'nav_name' => $page->nav_name,
+            'url' => $page->url,
+            'title' => $page->title,
+        ];
+    }
 
     /**
      * Include Page Detail

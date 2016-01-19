@@ -14,6 +14,7 @@ class BaseTransformer extends TransformerAbstract {
 
 	/**
 	 * Transforms a  model
+	 * Be default, it exposes all attributes
 	 * Overide this to hide attributes
 	 * 
 	 * @param  \App\LaravelRestCms\BaseModel $model
@@ -22,5 +23,17 @@ class BaseTransformer extends TransformerAbstract {
 	public function transform(BaseModel $model)
 	{
 		return $model->getAttributes();
+	}
+
+	/**
+	 * Adds a item to the availIncludes array
+	 * 
+	 * @param string $include
+	 */
+	protected function addToIncludes($include)
+	{
+		if ( ! in_array($include, $this->availableIncludes)) {
+			$this->availableIncludes[] = $include;
+		}
 	}
 }

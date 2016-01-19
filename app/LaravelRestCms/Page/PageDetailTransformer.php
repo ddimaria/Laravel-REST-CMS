@@ -17,6 +17,24 @@ class PageDetailTransformer extends BaseTransformer {
 	];
 
     /**
+     * Transforms a Page model
+     * 
+     * @param  \App\LaravelRestCms\BaseModel $pageDetail
+     * @return array
+     */
+    public function transform(BaseModel $pageDetail)
+    {
+        return [
+            'id' => (int) $pageDetail->id,
+            'page_id' => (int) $pageDetail->page_id,
+            'template_detail_id' => (int) $pageDetail->template_detail_id,
+            'data' => $pageDetail->data,
+            'group' => $pageDetail->group,
+            'version' => $pageDetail->version,
+        ];
+    }
+
+    /**
      * Include Template Detail
      *
      * @return \League\Fractal\ItemResource

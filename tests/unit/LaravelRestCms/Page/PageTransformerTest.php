@@ -3,7 +3,7 @@
 use App\LaravelRestCms\Page\Page;
 use App\LaravelRestCms\Page\PageTransformer;
 
-class PagTransformerTest extends TestCase {
+class PageTransformerTest extends TestCase {
 
 	public function setUp()
     {
@@ -30,6 +30,13 @@ class PagTransformerTest extends TestCase {
     {   
         $this->assertTrue(
             $this->transformerCollection($this->model, new PageTransformer, 'includeTemplate')
+        );
+    }
+
+    public function testIncludeParent()
+    {   
+        $this->assertTrue(
+            $this->transformerCollection($this->model, new PageTransformer, 'includeParent')
         );
     }
 }
