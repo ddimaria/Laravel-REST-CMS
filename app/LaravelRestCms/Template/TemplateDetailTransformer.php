@@ -9,11 +9,12 @@ class TemplateDetailTransformer extends BaseTransformer {
 	use HierarchyTransformerTrait;
 
     /**
-     * The transformer of the parent (usually itself)
-     * 
-     * @var string
+     * Constructor
      */
-    protected $parentTransformer = self::class;
+    public function __construct()
+    {
+        $this->setupHierarchy(self::class, 'parent');
+    }
 
     /**
      * Transforms a TemplateDetail model
