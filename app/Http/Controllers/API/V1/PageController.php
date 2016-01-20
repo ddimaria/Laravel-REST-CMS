@@ -40,7 +40,7 @@ class PageController extends ApiController
         	'parent',
         	'detail',
         	'detail.template_detail',
-        	'detail.template_detail.parent',
+        	//'detail.template_detail.parent',
         ]);
 
         return $this->show($id);
