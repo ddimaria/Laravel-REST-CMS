@@ -5,6 +5,7 @@
 /cache/*
 /docs/*
 composer.phar
+sami.phar
 .env.*.php
 .env.php
 .env
