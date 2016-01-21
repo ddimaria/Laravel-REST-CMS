@@ -1,9 +1,10 @@
 /vendor
 /node_modules
 /bootstrap/compiled.php
-/build/*.zip
+/build/*
+/cache/*
+/docs/*
 composer.phar
-composer.lock
 .env.*.php
 .env.php
 .env
@@ -13,3 +14,4 @@ Thumbs.db
 coverage.clover
 --coverage-clover=coverage.clover/*
 .phpstorm.meta.php
+phpDocumentor.phar
