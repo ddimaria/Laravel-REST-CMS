@@ -34,9 +34,14 @@ class Page extends BaseModel {
 	 * 
 	* @var array
 	 */
-	protected static $createRules = [	
-		'name' => 'required|unique:templates',
-		'layout' => 'required',
+	protected static $createRules = [
+		'parent_id' => 'integer',
+		'template_id' => 'integer',
+		'nav_name' => 'required',
+		'url' => 'required|unique:pages',
+		'title' => 'required',
+		'created_by' => 'integer',
+		'updated_by' => 'integer',
 	];
 
 	/**
@@ -44,7 +49,7 @@ class Page extends BaseModel {
 	 * 
 	* @var bool
 	 */
-	public $attirbution = false;
+	public $attirbution = true;
 
 	/**
 	 * Joins the page_detail table
@@ -74,6 +79,11 @@ class Page extends BaseModel {
 	public function parent()
     {
         return $this->hasMany(Page::class, 'id', 'parent_id');
+    }
+
+    public static function create(array $attributes = [])
+    {
+        return parent::create($attributes);
     }
 
 }

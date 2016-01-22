@@ -33,14 +33,8 @@ class Template extends BaseModel {
 	 * 
 	* @var array
 	 */
-	protected static $createRules = [	
-		'parent_id' => 'integer',
-		'template_id' => 'integer',
-		'nav_name' => 'required',
-		'url' => 'required|unique:pages',
-		'title' => 'required',
-		'created_by' => 'integer',
-		'updated_by' => 'integer',
+	protected static $createRules = [		
+		'name' => 'required|unique:templates',
 	];
 
 	/**

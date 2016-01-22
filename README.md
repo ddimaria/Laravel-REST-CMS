@@ -117,6 +117,19 @@ When returning data for collection-based endpoints, results are paginated, 15 pe
     }
 }
 ```
+Validation errors throw a 422 response:
+```json
+{
+  "error": {
+    "code": "GEN-UNPROCESSABLE-ENTITY",
+    "http_code": 422,
+    "message": [
+      "The name field is required.",
+      "The layout field is required."
+    ]
+  }
+}
+```
 
 ### Caching
 All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelRestCms\CacheTrait in which are cached when saved.
@@ -165,17 +178,11 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
 {
   "data": {
     "id": 1,
-    "parent_id": null,
+    "parent_id": 0,
     "template_id": 1,
-    "seo_id": null,
     "nav_name": "Home",
     "url": "home",
-    "title": "Home Page",
-    "sort": 1,
-    "created_at": "2016-01-13 07:57:48",
-    "updated_at": "2016-01-13 07:57:48",
-    "created_by": 1,
-    "updated_by": 1
+    "title": "Home Page"
   }
 }
 ```
@@ -187,17 +194,11 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
 {
   "data": {
     "id": 1,
-    "parent_id": null,
+    "parent_id": 0,
     "template_id": 1,
-    "seo_id": null,
     "nav_name": "Home",
     "url": "home",
     "title": "Home Page",
-    "sort": 1,
-    "created_at": "2016-01-13 07:57:48",
-    "updated_at": "2016-01-13 07:57:48",
-    "created_by": 1,
-    "updated_by": 1,
     "detail": {
       "data": [
         {
@@ -207,22 +208,17 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
           "data": "First page content",
           "group": 0,
           "version": 0,
-          "created_at": "2016-01-13 07:57:48",
-          "updated_at": "2016-01-13 07:57:48",
           "template_detail": {
             "data": [
               {
                 "id": 1,
-                "parent_id": null,
-                "template_id": 1,
+                "parent_id": 0,
                 "name": "Main Content",
                 "description": null,
                 "var": "main_content",
                 "type": "wysiwyg",
-                "data": "Hello world",
-                "sort": 1,
-                "created_at": "2016-01-13 07:57:48",
-                "updated_at": "2016-01-13 07:57:48"
+                "data": null,
+                "sort": 1
               }
             ]
           }
@@ -234,27 +230,25 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
           "data": "First page sub-content",
           "group": 0,
           "version": 0,
-          "created_at": "2016-01-13 07:57:48",
-          "updated_at": "2016-01-13 07:57:48",
           "template_detail": {
             "data": [
               {
                 "id": 2,
-                "parent_id": null,
-                "template_id": 1,
+                "parent_id": 1,
                 "name": "Sub Content",
                 "description": null,
-                "var": "sub_content",
+                "var": "main_content",
                 "type": "wysiwyg",
-                "data": "Sub content here",
-                "sort": 2,
-                "created_at": "2016-01-13 07:57:48",
-                "updated_at": "2016-01-13 07:57:48"
+                "data": null,
+                "sort": 1
               }
             ]
           }
         }
       ]
+    },
+    "parent": {
+      "data": []
     }
   }
 }

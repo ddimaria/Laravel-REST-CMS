@@ -3,13 +3,24 @@
 use App\LaravelRestCms\BaseTransformer;
 
 trait HierarchyTransformerTrait {
-	
-	/**
-	 * Constructor
-	 */
-    public function __construct()
+
+    /**
+     * The transformer of the parent (usually itself)
+     * 
+     * @var string
+     */
+    protected $parentTransformer;
+
+    /**
+     * Sets instance vars and adds includes
+     * 
+     * @param  string $parentTransformer 
+     * @param  string $method            
+     */
+    protected function setupHierarchy($parentTransformer, $method = 'parent')
     {
-        parent::addToIncludes('parent');
+        $this->parentTransformer = $parentTransformer;
+        parent::addToIncludes($method);
     }
 
     /**
