@@ -13,6 +13,9 @@ This package complies with [PSR-1], [PSR-2] and [PSR-4].
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
+[Project Homepage](http://www.collectivesessions.com/laravel-rest-cms/)
+[API Docs](http://www.collectivesessions.com/laravel-rest-cms/api-docs/current/)
+
 ## Requirements
 
 * PHP >= 5.5.9
