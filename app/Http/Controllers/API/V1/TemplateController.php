@@ -31,7 +31,7 @@ class TemplateController extends ApiController
     /**
      * Returns a page and associated detail and template data
      * 
-     * @param  int $id
+     * @param  mixed $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function showWithDetail($id)

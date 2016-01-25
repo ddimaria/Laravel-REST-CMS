@@ -19,7 +19,7 @@ class TemplateTransformer extends BaseTransformer {
      * 
      * @param  \App\LaravelRestCms\BaseModel $page
      * @return array
-     
+     */
     public function transform(BaseModel $page)
     {
         return [
@@ -31,7 +31,7 @@ class TemplateTransformer extends BaseTransformer {
             'title' => $page->title,
         ];
     }
-*/
+    
     /**
      * Include Template Detail
      * 
