@@ -81,9 +81,4 @@ class Page extends BaseModel {
         return $this->hasMany(Page::class, 'id', 'parent_id');
     }
 
-    public static function create(array $attributes = [])
-    {
-        return parent::create($attributes);
-    }
-
 }
