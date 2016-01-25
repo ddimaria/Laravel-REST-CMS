@@ -31,7 +31,18 @@ class PageController extends ApiController
     /**
      * Returns a page and associated detail and template data
      * 
-     * @param  int $id
+     * @param  string $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showBySlug($slug)
+    {        
+        return $this->showWithDetail(['url' => $slug]);
+    }
+
+    /**
+     * Returns a page and associated detail and template data
+     * 
+     * @param  mixed $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function showWithDetail($id)
