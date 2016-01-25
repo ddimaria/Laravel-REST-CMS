@@ -127,14 +127,18 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     /**
      * Returns a single item
      * 
-     * @param  int $id
+     * @param  mixed $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {        
         try {
             
-            return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName);
+            if (is_array($id)) {
+                return $this->response->withItem($this->model->where($id)->firstOrFail(), new $this->transformerName);
+            } else {
+                return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName);
+            }            
         
         } catch (ModelNotFoundException $e) {
 
@@ -183,7 +187,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
      * @param  string $msg
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondNotFound($msg = 'Not found!')
+    public static function respondNotFound($msg = 'Not found!')
     {
         return \Response::json([
             'error' => [
