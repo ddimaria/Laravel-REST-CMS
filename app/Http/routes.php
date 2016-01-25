@@ -11,6 +11,8 @@
 |
 */
 
+Route::pattern('id', '\d+');
+
 // V1 API
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 {
@@ -20,6 +22,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 
 	// page
 	Route::get('page/{id}', 'PageController@show');
+	Route::get('page/{slug}', 'PageController@showBySlug');
 	Route::post('page', 'PageController@create');
 	Route::get('page/{id}/detail', 'PageController@showWithDetail');
 	Route::get('pagedetail/{id}', 'PageDetailController@show');
@@ -32,3 +35,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 	Route::get('templatedetail/{id}', 'TemplateDetailController@show');
 	Route::post('templatedetail', 'TemplateDetailController@create');
 });
+
+Route::any('{any}', function($route) 
+{
+    return \App\Http\Controllers\Api\V1\ApiController::respondNotFound('Invalid Route!');
+})->where('any', '(.*)');
