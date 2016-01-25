@@ -48,7 +48,7 @@ class BaseModelTest extends TestCase {
 		$this->assertEquals('Three Words Here', $formatted);
 	}
 
-	public function testValidateInsert()
+	public function testCreate()
 	{
 		$data = [
 			'col_1' => 'a',
@@ -64,7 +64,7 @@ class BaseModelTest extends TestCase {
 	/**
 	 * @expectedException \Illuminate\Contracts\Validation\ValidationException
 	 */
-	public function testValidateInsertInvalid()
+	public function testCreateInvalid()
 	{
 		$data = [
 			'col_1' => 'a',
@@ -74,7 +74,7 @@ class BaseModelTest extends TestCase {
 		$valid = $this->invokeMethod($this->model, 'validate', [$data]);
 	}
 
-	public function testValidateUpdate()
+	public function testUpdate()
 	{
 		$data = [
 			'col_1' => 'a',
@@ -90,7 +90,7 @@ class BaseModelTest extends TestCase {
 	/**
 	 * @expectedException \Illuminate\Contracts\Validation\ValidationException
 	 */
-	public function testValidateUpdateInvalid()
+	public function testUpdateInvalid()
 	{
 		$data = [
 			'col_1' => 'a',
