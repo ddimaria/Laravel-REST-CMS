@@ -47,7 +47,7 @@ class PageController extends ApiController
      */
     public function showBySlug($slug)
     {        
-        return $this->showWithDetail(['url' => $slug]);
+        return \Response::json($this->model->showBySlug($slug));
     }
 
     /**
