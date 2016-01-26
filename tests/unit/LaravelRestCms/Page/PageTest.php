@@ -33,4 +33,11 @@ class PageTest extends TestCase {
             $this->relationship($this->model, new Page, 'parent', 'parent_id', 'id')
         );
     }
+
+    public function testShowBySlug()
+    {
+        $data = $this->model->showBySlug($this->model->url);
+
+        $this->assertArrayHasKeys(['nav_name', 'url', 'title', 'vars'], $data);
+    }
 }
