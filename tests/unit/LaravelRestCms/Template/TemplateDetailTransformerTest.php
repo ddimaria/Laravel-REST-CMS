@@ -12,7 +12,7 @@ class TemplateDetailTransformerTest extends TestCase {
         $this->model = TemplateDetail::first();
     }
 
-     public function testTransform()
+    public function testTransform()
     {
         $this->assertTrue(
             $this->transformGeneric($this->model, new TemplateDetailTransformer)
