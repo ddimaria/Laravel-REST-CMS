@@ -12,14 +12,14 @@ class PageDetailController extends ApiController
 	 * 
 	 * @var string
 	 */
-	protected $modelName = App\LaravelRestCms\Page\PageDetail::class;
+	protected $modelName = \App\LaravelRestCms\Page\PageDetail::class;
     
 	/**
 	 * The name of the transformer to use for this package
 	 * 
 	 * @var string
 	 */
-	protected $transformerName = App\LaravelRestCms\Page\PageDetailTransformer::class;
+	protected $transformerName = \App\LaravelRestCms\Page\PageDetailTransformer::class;
     
 	/**
 	 * The key to use as a key for this collection in the output
