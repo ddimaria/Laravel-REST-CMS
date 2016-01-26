@@ -38,6 +38,7 @@ class PageTest extends TestCase {
     {
         $data = $this->model->showBySlug($this->model->url);
 
-        $this->assertArrayHasKeys(['nav_name', 'url', 'title', 'vars'], $data);
+        $this->assertArrayHasKeys(['nav_name', 'url', 'title', 'vars', 'template'], $data);
+        $this->assertArrayHasKeys(['name', 'class', 'method', 'params', 'template_name', 'layout'], $data['template']);
     }
 }
