@@ -69,6 +69,7 @@ class PageController extends ApiController
         	'detail',
         	'detail.template_detail',
         	'template',
+        	'seo',
         	//'detail.template_detail.parent',
         ]);
 
