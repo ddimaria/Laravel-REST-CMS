@@ -181,4 +181,44 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         
         return is_array($collection) && count($collection);
     }
+
+    /**
+	 * Reports an error if $array does not have all of the specified keys.
+	 * 
+	 * @param array $expectedKeys
+	 * @param array $actual
+	 * @param string $message
+	 * @param bool
+	 */
+	protected function assertArrayHasKeys(array $expectedKeys, array $actual, $message = '', $strict = false) 
+	{
+		$extraKeys = static::arrayHasKeys($actual, $expectedKeys);
+		$this->assertEquals(array(), $extraKeys, $message);
+		
+		if ($strict) {
+			$actualKeys = array_keys($actual);
+			sort($expectedKeys);
+			sort($actualKeys);
+			$this->assertEquals($expectedKeys, $actualKeys, $message);
+		}
+	}
+
+	/**
+	 * Determine if the listed keys are in an array
+	 *
+	 * @param array $source
+	 * @param array $keys
+	 * @return array
+	 */
+	static public function arrayHasKeys($source, $keys, $strict = false) 
+	{
+		$missing = array();
+		foreach ($keys as $key) {
+			if (! array_key_exists($key, $source)) {
+				$missing[] = $key;
+			}
+		}
+		return $missing;
+	}
+
 }
