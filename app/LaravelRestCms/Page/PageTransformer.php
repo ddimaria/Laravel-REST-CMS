@@ -5,6 +5,8 @@ use App\LaravelRestCms\BaseTransformer;
 use App\LaravelRestCms\HierarchyTransformerTrait;
 use App\LaravelRestCms\Page\Page;
 use App\LaravelRestCms\Page\PageDetailTransformer;
+use App\LaravelRestCms\Seo\Seo;
+use App\LaravelRestCms\Seo\SeoTransformer;
 use App\LaravelRestCms\Template\TemplateTransformer;
 
 class PageTransformer extends BaseTransformer {
@@ -19,6 +21,7 @@ class PageTransformer extends BaseTransformer {
 	protected $availableIncludes = [
 		'detail',
 		'template',
+        'seo',
 	];
 
     /**
@@ -67,5 +70,16 @@ class PageTransformer extends BaseTransformer {
     public function includeTemplate(Page $page)
     {
         return $this->collection($page->template, new TemplateTransformer);
+    }
+
+    /**
+     * Include Seo
+     *
+     * @param \App\LaravelRestCms\Page\Page
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeSeo(Page $page)
+    {
+        return $this->collection($page->seo, new SeoTransformer);
     }
 }

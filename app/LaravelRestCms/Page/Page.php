@@ -2,6 +2,7 @@
 
 use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\Page\PageDetail;
+use App\LaravelRestCms\Seo\Seo;
 use App\LaravelRestCms\Template\Template;
 
 class Page extends BaseModel {
@@ -72,6 +73,16 @@ class Page extends BaseModel {
     }
 
 	/**
+	 * Joins the seo table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
+	 */
+	public function seo()
+    {
+        return $this->hasMany(Seo::class, 'id', 'seo_id');
+    }
+
+	/**
 	 * Joins the pages table
 	 * 
 	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
@@ -102,6 +113,7 @@ class Page extends BaseModel {
      */
     protected function packagePage(Page $data)
     {
+    	$seo = $data->seo->first();
     	$template = $data->template->first();
     	
     	$page = [
@@ -116,6 +128,17 @@ class Page extends BaseModel {
 	            'params' => $template->params,
 	            'template_name' => $template->template_name,
 	            'layout' => $template->layout,
+        	],
+        	'seo' => [
+        		'title' => $seo->title, 
+	            'keywords' => $seo->keywords, 
+	            'description' => $seo->description,
+	            'og_title' => $seo->og_title,
+	            'og_description' => $seo->og_description,
+	            'og_image' => $seo->og_image,
+	            'og_type' => $seo->og_type,
+	            'fb_app_id' => $seo->fb_app_id,
+	            'meta' => $seo->meta,
         	]
         ];
 
