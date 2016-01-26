@@ -20,17 +20,18 @@ class TemplateTransformer extends BaseTransformer {
      * @param  \App\LaravelRestCms\BaseModel $page
      * @return array
      */
-    public function transform(BaseModel $page)
+    public function transform(BaseModel $template)
     {
         return [
-            'id' => (int) $page->id,
-            'parent_id' => (int)$page->parent_id,
-            'template_id' => (int) $page->template_id,
-            'nav_name' => $page->nav_name,
-            'url' => $page->url,
-            'title' => $page->title,
+            'id' => (int) $template->id,
+            'name' => $template->name,
+            'class' => $template->class,
+            'method' => $template->method,
+            'params' => $template->params,
+            'template_name' => $template->template_name,
+            'layout' => $template->layout,
         ];
-    }
+    }  
     
     /**
      * Include Template Detail
