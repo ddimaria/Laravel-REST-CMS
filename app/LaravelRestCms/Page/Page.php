@@ -81,4 +81,40 @@ class Page extends BaseModel {
         return $this->hasMany(Page::class, 'id', 'parent_id');
     }
 
+    /**
+     * Returns a page and associated detail and template data
+     * 
+     * @param  string $slug
+     * @return array
+     */
+    public function showBySlug($slug)
+    {        
+        $data = Page::where(['url' => $slug])->with('detail.templateDetail')->firstOrFail();
+        
+        return $this->packagePage($data);
+    }
+
+    /**
+     * Pacages a Page collection into an array for public consumption
+     * 
+     * @param  Page   $data 
+     * @return array
+     */
+    protected function packagePage(Page $data)
+    {
+    	$page = [
+        	'nav_name' => $data->nav_name,
+        	'url' => $data->url,
+        	'title' => $data->title,
+        	'vars' => []
+        ];
+
+        foreach ($data->detail as $detail) {
+        	foreach ($detail->templateDetail as $template_detail) {
+	        	$page['vars'][$template_detail->var] = $detail->data;
+        	}
+        }
+
+        return $page;
+    }
 }
