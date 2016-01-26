@@ -103,7 +103,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
             return $this->response->setStatusCode(422)->withError($e->errors()->all(), 'GEN-UNPROCESSABLE-ENTITY');
         } catch (MassAssignmentException $e) {
             return $this->response->setStatusCode(422)->withError("Cannot mass assign " . $e->getMessage(), 'GEN-UNPROCESSABLE-ENTITY');
-        }  catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->response->setStatusCode(422)->withError($e->getMessage(), 'GEN-UNPROCESSABLE-ENTITY');
         }
     }
@@ -149,7 +149,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     /**
      * Returns a single item
      * 
-     * @param  object $object
+     * @param  \Illuminate\Database\Eloquent\Model $object
      * @return \Illuminate\Http\JsonResponse
      */
     public function showByObject($object)

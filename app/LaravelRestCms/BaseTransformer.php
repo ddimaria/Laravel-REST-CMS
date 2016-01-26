@@ -32,7 +32,7 @@ class BaseTransformer extends TransformerAbstract {
 	 */
 	protected function addToIncludes($include)
 	{
-		if ( ! in_array($include, $this->availableIncludes)) {
+		if (!in_array($include, $this->availableIncludes)) {
 			$this->availableIncludes[] = $include;
 		}
 	}

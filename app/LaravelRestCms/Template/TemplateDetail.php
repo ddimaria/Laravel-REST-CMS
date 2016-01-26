@@ -46,8 +46,8 @@ class TemplateDetail extends BaseModel {
 	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
 	 */
 	public function parent()
-    {
-        return $this->hasMany(TemplateDetail::class, 'id', 'parent_id');
-    }
+	{
+		return $this->hasMany(TemplateDetail::class, 'id', 'parent_id');
+	}
 
 }

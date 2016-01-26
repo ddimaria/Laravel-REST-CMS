@@ -39,41 +39,41 @@ class PageController extends ApiController
 		],
 	];
 
-    /**
-     * Returns a page and associated detail and template data
-     * 
-     * @param  string $slug
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function showBySlug($slug)
-    {        
-        try {
-            return \Response::json($this->model->showBySlug($slug));
+	/**
+	 * Returns a page and associated detail and template data
+	 * 
+	 * @param  string $slug
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showBySlug($slug)
+	{        
+		try {
+			return \Response::json($this->model->showBySlug($slug));
         
-        } catch (\Exception $e) {
+		} catch (\Exception $e) {
 
-            return $this->respondNotFound();
-        }
-    }
+			return $this->respondNotFound();
+		}
+	}
 
-    /**
-     * Returns a page and associated detail and template data
-     * 
-     * @param  mixed $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function showWithDetail($id)
-    {        
-        $this->manager->parseIncludes([
-        	'parent',
-        	'detail',
-        	'detail.template_detail',
-        	'template',
-        	'seo',
-        	//'detail.template_detail.parent',
-        ]);
+	/**
+	 * Returns a page and associated detail and template data
+	 * 
+	 * @param  mixed $id
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showWithDetail($id)
+	{        
+		$this->manager->parseIncludes([
+			'parent',
+			'detail',
+			'detail.template_detail',
+			'template',
+			'seo',
+			//'detail.template_detail.parent',
+		]);
 
-        return $this->show($id);
-    }
+		return $this->show($id);
+	}
 
 }

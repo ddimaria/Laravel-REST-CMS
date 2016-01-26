@@ -15,7 +15,6 @@ class SeoTransformer extends BaseTransformer {
     /**
      * Transforms a Page model
      * 
-     * @param  \App\LaravelRestCms\BaseModel $page
      * @return array
      */
     public function transform(BaseModel $seo)
