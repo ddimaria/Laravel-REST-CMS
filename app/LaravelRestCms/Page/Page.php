@@ -89,7 +89,7 @@ class Page extends BaseModel {
      */
     public function showBySlug($slug)
     {        
-        $data = Page::where(['url' => $slug])->with('detail.templateDetail')->firstOrFail();
+        $data = Page::where(['url' => $slug])->with('template', 'detail.templateDetail')->firstOrFail();
         
         return $this->packagePage($data);
     }
@@ -102,17 +102,25 @@ class Page extends BaseModel {
      */
     protected function packagePage(Page $data)
     {
+    	$template = $data->template->first();
+    	
     	$page = [
         	'nav_name' => $data->nav_name,
         	'url' => $data->url,
         	'title' => $data->title,
-        	'vars' => []
+        	'vars' => [],
+        	'template' => [
+        		'name' => $template->name,
+	            'class' => $template->class,
+	            'method' => $template->method,
+	            'params' => $template->params,
+	            'template_name' => $template->template_name,
+	            'layout' => $template->layout,
+        	]
         ];
 
         foreach ($data->detail as $detail) {
-        	foreach ($detail->templateDetail as $template_detail) {
-	        	$page['vars'][$template_detail->var] = $detail->data;
-        	}
+        	$page['vars'][$detail->templateDetail->first()->var] = $detail->data;
         }
 
         return $page;
