@@ -47,7 +47,13 @@ class PageController extends ApiController
      */
     public function showBySlug($slug)
     {        
-        return \Response::json($this->model->showBySlug($slug));
+        try {
+            return \Response::json($this->model->showBySlug($slug));
+        
+        } catch (\Exception $e) {
+
+            return $this->respondNotFound();
+        }
     }
 
     /**
@@ -62,6 +68,7 @@ class PageController extends ApiController
         	'parent',
         	'detail',
         	'detail.template_detail',
+        	'template',
         	//'detail.template_detail.parent',
         ]);
 
