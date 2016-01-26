@@ -39,4 +39,11 @@ class PageTransformerTest extends TestCase {
             $this->transformerCollection($this->model, new PageTransformer, 'includeParent')
         );
     }
+
+    public function testIncludeSeo()
+    {   
+        $this->assertTrue(
+            $this->transformerCollection($this->model, new PageTransformer, 'includeSeo')
+        );
+    }
 }
