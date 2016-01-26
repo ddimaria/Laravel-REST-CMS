@@ -13,8 +13,8 @@ This package complies with [PSR-1], [PSR-2] and [PSR-4].
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
-[Project Homepage](http://www.collectivesessions.com/laravel-rest-cms/)
-[API Docs](http://www.collectivesessions.com/laravel-rest-cms/api-docs/current/)
+* [Project Homepage](http://www.collectivesessions.com/laravel-rest-cms/)
+* [API Docs](http://www.collectivesessions.com/laravel-rest-cms/api-docs/current/)
 
 ## Requirements
 
@@ -91,6 +91,10 @@ Responses are sent using the [ellipsesynergie/api-response](https://github.com/e
 
 ### Authentication
 The system implements token-based authetication with the [chrisbjr/api-guard](https://github.com/chrisbjr/api-guard) component.  This nifty package plays well with Fractal and Api-Response, and fully abstracts authentication, token generation and maintenence, api rate limiting, access levels, method-level access and full api logging.
+
+The token name is X-Authorization, and is used to authenticate requests.  To authenticate, add it to the header of your request with the api_key value you receive after logging in.  There are some routes that do not require api authentication.
+
+```curl --header "X-Authorization: 2ed9d72e5596800bf805ca1c735e446df72019ef" http://localhost:8000/api/v1/page/1```
 
 ### Pagination
 When returning data for collection-based endpoints, results are paginated, 15 per page.
@@ -192,6 +196,10 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
 
 ### Page data, including page_detail and template_detail joins
 ```GET /app/v1/page/{id}/detail```
+```GET /app/v1/page/{slug}```
+
+
+The 2 routes above get the same information.  The first one keys off of the primary key (id), while the second one looks up the page by the slug.
 #### Response
 ```json
 {
@@ -253,6 +261,32 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
     "parent": {
       "data": []
     }
+  }
+}
+```
+
+### Create a Page
+```POST /app/v1/page/{id}```
+#### POST
+```json
+{
+    "parent_id" : 1,
+    "template_id" : 1,
+    "nav_name": "New Page",
+    "url": "new-page-here",
+    "title" : "New Page Title"
+}
+```
+#### Response
+```json
+{
+  "data": {
+    "id": 21,
+    "parent_id": 1,
+    "template_id": 1,
+    "nav_name": "New Page",
+    "url": "new-page-here",
+    "title": "New Page Title"
   }
 }
 ```
