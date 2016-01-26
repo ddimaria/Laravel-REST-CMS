@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\LaravelRestCms\ApiInterface;
 use \Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
+use \EllipseSynergie\ApiResponse\Laravel\Response;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Validation\ValidationException;
