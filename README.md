@@ -13,8 +13,8 @@ This package complies with [PSR-1], [PSR-2] and [PSR-4].
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
 
-[Project Homepage](http://www.collectivesessions.com/laravel-rest-cms/)
-[API Docs](http://www.collectivesessions.com/laravel-rest-cms/api-docs/current/)
+* [Project Homepage](http://www.collectivesessions.com/laravel-rest-cms/)
+* [API Docs](http://www.collectivesessions.com/laravel-rest-cms/api-docs/current/)
 
 ## Requirements
 
@@ -253,6 +253,32 @@ All models that extend \App\LaravelRestCms\BaseModel implement the \App\LaravelR
     "parent": {
       "data": []
     }
+  }
+}
+```
+
+### Create a Page
+```POST /app/v1/page/{id}```
+#### POST
+```json
+{
+    "parent_id" : 1,
+    "template_id" : 1,
+    "nav_name": "New Page",
+    "url": "new-page-here",
+    "title" : "New Page Title"
+}
+```
+#### Response
+```json
+{
+  "data": {
+    "id": 21,
+    "parent_id": 1,
+    "template_id": 1,
+    "nav_name": "New Page",
+    "url": "new-page-here",
+    "title": "New Page Title"
   }
 }
 ```
