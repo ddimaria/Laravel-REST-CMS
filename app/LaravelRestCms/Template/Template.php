@@ -31,7 +31,7 @@ class Template extends BaseModel {
 	/**
 	 * Rules to validate when creating a model
 	 * 
-	* @var array
+	 * @var array
 	 */
 	protected static $createRules = [		
 		'name' => 'required|unique:templates',
@@ -43,8 +43,8 @@ class Template extends BaseModel {
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function detail()
-    {
-        return $this->hasMany(TemplateDetail::class, 'template_id', 'id');
-    }
+	{
+		return $this->hasMany(TemplateDetail::class, 'template_id', 'id');
+	}
     
 }

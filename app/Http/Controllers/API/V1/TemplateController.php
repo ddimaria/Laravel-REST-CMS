@@ -28,19 +28,19 @@ class TemplateController extends ApiController
 	 */
 	protected $collectionName = 'templates';
 
-    /**
-     * Returns a page and associated detail and template data
-     * 
-     * @param  mixed $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function showWithDetail($id)
-    {        
-        $this->manager->parseIncludes([
-        	'detail',
-        ]);
+	/**
+	 * Returns a page and associated detail and template data
+	 * 
+	 * @param  mixed $id
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function showWithDetail($id)
+	{        
+		$this->manager->parseIncludes([
+			'detail',
+		]);
 
-        return $this->show($id);
-    }
+		return $this->show($id);
+	}
 
 }

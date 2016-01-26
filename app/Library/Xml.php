@@ -36,7 +36,7 @@ class Xml
    	{    	
 		$xml = $xml ?: $this->xml;
 		//$array = json_decode(str_replace('{"0":" "}','null', json_encode(simplexml_load_string($xml),JSON_NUMERIC_CHECK)), true);
-		$array = json_decode(str_replace('{"0":" "}','null', json_encode(simplexml_load_string($xml))), true);
+		$array = json_decode(str_replace('{"0":" "}', 'null', json_encode(simplexml_load_string($xml))), true);
 		$this->filterEmptyArray($array);
 
 		return $array;
@@ -53,7 +53,7 @@ class Xml
 	 */
 	public function replaceInNode($xml, $node, $find, $replace)
 	{       
-		return preg_replace_callback('@(<' . $node . '>)' . $find . '(</' . $node . '>)@s', function ($matches) use ($replace) {
+		return preg_replace_callback('@(<' . $node . '>)' . $find . '(</' . $node . '>)@s', function($matches) use ($replace) {
 			return str_replace(' ', $replace, $matches[0]);
 		}, $xml);
 	}

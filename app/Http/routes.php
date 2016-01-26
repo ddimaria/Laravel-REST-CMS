@@ -38,5 +38,5 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function()
 
 Route::any('{any}', function($route) 
 {
-    return \App\Http\Controllers\Api\V1\ApiController::respondNotFound('Invalid Route!');
+	return \App\Http\Controllers\Api\V1\ApiController::respondNotFound('Invalid Route!');
 })->where('any', '(.*)');

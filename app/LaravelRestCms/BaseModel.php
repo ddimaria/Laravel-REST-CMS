@@ -80,21 +80,21 @@ abstract class BaseModel extends Model {
 	public $attirbution = false;
 
 	/**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        if (!is_null(static::$updateRules) && !is_null(static::$updateRulesConcat) && sizeof(static::$updateRulesConcat)) {
-	        static::$updateRules = static::$createRules + static::$updateRulesConcat; 
-	    }
+	 * The "booting" method of the model.
+	 *
+	 * @return void
+	 */
+	protected static function boot()
+	{
+		if (!is_null(static::$updateRules) && !is_null(static::$updateRulesConcat) && sizeof(static::$updateRulesConcat)) {
+			static::$updateRules = static::$createRules + static::$updateRulesConcat; 
+		}
 
-	    parent::boot();
+		parent::boot();
 
-        static::savedEvent();
-        static::deletingEvent();
-    }	 
+		static::savedEvent();
+		static::deletingEvent();
+	}	 
 	
 	/**
 	 * Gets the table name of the model
@@ -107,35 +107,35 @@ abstract class BaseModel extends Model {
 		return $this->table;
 	}
 
-    /**
-     * Hooks into the "saved" event
-     * 
-     * @return void
-     */
-    protected static function savedEvent()
-    {
-        static::saved(function($model)
-        {
-            static::addToCache($model);
+	/**
+	 * Hooks into the "saved" event
+	 * 
+	 * @return void
+	 */
+	protected static function savedEvent()
+	{
+		static::saved(function($model)
+		{
+			static::addToCache($model);
 
-            return true;
-        });
-    }
+			return true;
+		});
+	}
 
-    /**
-     * Hooks into the "deleting" event
-     * 
-     * @return void
-     */
-    protected static function deletingEvent()
-    {
-        static::deleting(function($model)
-        {
-           static::removeFromCache($model);
+	/**
+	 * Hooks into the "deleting" event
+	 * 
+	 * @return void
+	 */
+	protected static function deletingEvent()
+	{
+		static::deleting(function($model)
+		{
+		   static::removeFromCache($model);
 
-            return true;
-        });
-    }
+			return true;
+		});
+	}
 	
 	/**
 	 * Retrieves the singular name of the table

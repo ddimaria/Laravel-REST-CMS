@@ -64,7 +64,7 @@ trait SearchTrait {
 	public function scopeSearch(\App\LaravelRestCms\BaseModel $query, $keyword = null)
 	{        
 		$searchCols = $this->getSearchCols(null, static::$labelCol);
-		$query->select('*', implode(' ', static::$labelCol) .  ' as label', 'url');
+		$query->select('*', implode(' ', static::$labelCol) . ' as label', 'url');
 		$match = '';
 
 		// make search results use the "and" clause

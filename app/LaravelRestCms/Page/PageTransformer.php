@@ -11,7 +11,7 @@ use App\LaravelRestCms\Template\TemplateTransformer;
 
 class PageTransformer extends BaseTransformer {
 
-    use HierarchyTransformerTrait;
+	use HierarchyTransformerTrait;
 
 	/**
 	 * List of resources possible to include
@@ -54,7 +54,7 @@ class PageTransformer extends BaseTransformer {
      * Include Page Detail
      * 
      * @param \App\LaravelRestCms\Page\Page
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Collection
      */
     public function includeDetail(Page $page)
     {
@@ -65,7 +65,7 @@ class PageTransformer extends BaseTransformer {
      * Include Template
      *
      * @param \App\LaravelRestCms\Page\Page
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Collection
      */
     public function includeTemplate(Page $page)
     {
@@ -76,7 +76,7 @@ class PageTransformer extends BaseTransformer {
      * Include Seo
      *
      * @param \App\LaravelRestCms\Page\Page
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Collection
      */
     public function includeSeo(Page $page)
     {

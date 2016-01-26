@@ -17,7 +17,6 @@ class TemplateTransformer extends BaseTransformer {
     /**
      * Transforms a Page model
      * 
-     * @param  \App\LaravelRestCms\BaseModel $page
      * @return array
      */
     public function transform(BaseModel $template)
@@ -37,7 +36,7 @@ class TemplateTransformer extends BaseTransformer {
      * Include Template Detail
      * 
      * @param \App\LaravelRestCms\Template\Template $template
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Collection
      */
     public function includeDetail(Template $template)
     {

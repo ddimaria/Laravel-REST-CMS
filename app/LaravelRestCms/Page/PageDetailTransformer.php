@@ -16,31 +16,31 @@ class PageDetailTransformer extends BaseTransformer {
 		'template_detail'
 	];
 
-    /**
-     * Transforms a Page model
-     * 
-     * @param  \App\LaravelRestCms\BaseModel $pageDetail
-     * @return array
-     */
-    public function transform(BaseModel $pageDetail)
-    {
-        return [
-            'id' => (int) $pageDetail->id,
-            'page_id' => (int) $pageDetail->page_id,
-            'template_detail_id' => (int) $pageDetail->template_detail_id,
-            'data' => $pageDetail->data,
-            'group' => $pageDetail->group,
-            'version' => $pageDetail->version,
-        ];
-    }
+	/**
+	 * Transforms a Page model
+	 * 
+	 * @param  \App\LaravelRestCms\BaseModel $pageDetail
+	 * @return array
+	 */
+	public function transform(BaseModel $pageDetail)
+	{
+		return [
+			'id' => (int) $pageDetail->id,
+			'page_id' => (int) $pageDetail->page_id,
+			'template_detail_id' => (int) $pageDetail->template_detail_id,
+			'data' => $pageDetail->data,
+			'group' => $pageDetail->group,
+			'version' => $pageDetail->version,
+		];
+	}
 
-    /**
-     * Include Template Detail
-     *
-     * @return \League\Fractal\ItemResource
-     */
-    public function includeTemplateDetail(PageDetail $pageDetail)
-    {
-        return $this->collection($pageDetail->templateDetail, new TemplateDetailTransformer);
-    }
+	/**
+	 * Include Template Detail
+	 *
+	 * @return \League\Fractal\ItemResource
+	 */
+	public function includeTemplateDetail(PageDetail $pageDetail)
+	{
+		return $this->collection($pageDetail->templateDetail, new TemplateDetailTransformer);
+	}
 }
