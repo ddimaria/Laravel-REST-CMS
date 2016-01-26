@@ -28,6 +28,17 @@ class PageController extends ApiController
 	 */
 	protected $collectionName = 'pages';
 
+	/**
+	 * The methods that don't require api authentication
+	 * 
+	 * @var array
+	 */
+	protected $apiMethods = [
+		'showBySlug' => [
+			'keyAuthentication' => false
+		],
+	];
+
     /**
      * Returns a page and associated detail and template data
      * 
