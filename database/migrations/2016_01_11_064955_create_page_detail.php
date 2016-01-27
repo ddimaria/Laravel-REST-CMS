@@ -17,7 +17,7 @@ class CreatePageDetail extends Migration
             $table->increments('id');
             $table->integer('page_id')->unsigned();
             $table->integer('template_detail_id')->unsigned();
-            $table->string('data', 1000);
+            $table->text('data')->nullable();
             $table->integer('group')->unsigned()->default(0);
             $table->integer('version')->unsigned()->default(0);
             $table->timestamps();
