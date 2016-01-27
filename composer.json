@@ -6,11 +6,11 @@
 	"type": "project",
 	"require": {
 		"barryvdh/laravel-ide-helper": "~2.0",
-		"barryvdh/laravel-cors": "0.5.x@dev",
-		"chrisbjr/api-guard": "2.3.*",
+		"barryvdh/laravel-cors": "0.8.x",
+		"chrisbjr/api-guard": "dev-master",
 		"doctrine/dbal": "2.5.1",
-		"laravel/framework": "5.1.*",
-		"laravelcollective/remote": "~5.0",
+		"laravel/framework": "5.2.*",
+		"laravelcollective/remote": "5.2.*",
 		"league/fractal": "0.12.*",
 		"maknz/slack": "^1.7",
 		"maatwebsite/excel": "~2.0.0",
@@ -20,7 +20,9 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1"
+		"phpspec/phpspec": "~2.1",
+		"symfony/dom-crawler": "~3.0",
+		"symfony/css-selector": "~3.0"
 	},
 	"autoload": {
 		"classmap": [
@@ -56,5 +58,7 @@
 	         "url": "https://packagist.org"
 	    },
 	    { "packagist": false }
-	]
+	],
+	"minimum-stability": "dev",
+    "prefer-stable": true
 }
