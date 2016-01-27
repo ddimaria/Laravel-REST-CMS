@@ -31,7 +31,7 @@ class Handler extends ExceptionHandler {
 				"File: " . $e->getFile() . 
 				"\nLine: " . $e->getLine() . 
 				"\nMessage: " . $e->getMessage() . 
-				"\n\nTrace:\n" . substr($e->getTraceAsString(), 0, 5000)
+				"\n\nTrace:\n" . substr($e->getTraceAsString(), 0, 25000)
 			);
 		}
 
