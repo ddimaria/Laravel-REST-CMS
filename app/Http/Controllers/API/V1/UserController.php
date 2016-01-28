@@ -8,7 +8,7 @@ use App\LaravelRestCms\User\User as User;
 use Input;
 use Validator;
 
-class UserController extends ApiGuardController
+class UserController extends ApiController
 {
 	/**
 	 * The name of the model to use for this package
