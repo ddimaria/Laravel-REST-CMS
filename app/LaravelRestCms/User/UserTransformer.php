@@ -1,6 +1,7 @@
 <?php namespace App\LaravelRestCms\User;
 
 use App\LaravelRestCms\BaseModel;
+use App\LaravelRestCms\ApiKey\ApiKeyTransformer;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract {
@@ -11,6 +12,7 @@ class UserTransformer extends TransformerAbstract {
 	 * @var array
 	 */
 	protected $availableIncludes = [
+		'apiKey'
 	];
 
 	/**
@@ -25,8 +27,22 @@ class UserTransformer extends TransformerAbstract {
 			'id'     => (int) $user->id,
 			'first_name' => $user->first_name,
 			'last_name' => $user->last_name,
-			'api_key' => $user->apiKey->key,
-			'version' => \Config::get('laravel-rest-cms.version'),
+			'email' => $user->email,
+			//'api_key' => $user->apiKey->key,
+			//'version' => \Config::get('laravel-rest-cms.version'),
 		];
 	}
+
+    /**
+     * Include ApiKey
+     *
+     * @param \App\LaravelRestCms\User\User
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeApiKey(User $user)
+    {
+        return $this->collection($user->apiKey, new ApiKeyTransformer);
+    }
+
+
 }
