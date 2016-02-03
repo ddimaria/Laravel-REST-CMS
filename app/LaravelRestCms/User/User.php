@@ -55,14 +55,14 @@ class User extends BaseModel {
 	}
 
 	/**
-	 * Relationship to the api_key table
+	 * Relationship to the api_keys table
 	 * 
 	 * @codeCoverageIgnore
-	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function apiKey()
 	{
-		return $this->hasOne(\App\LaravelRestCms\ApiKey\ApiKey::class, 'user_id');
+		return $this->hasMany(\App\LaravelRestCms\ApiKey\ApiKey::class, 'user_id', 'id');
 	} 
 
 }
