@@ -63,7 +63,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
      */
     public function __construct()
     {
-        $this->response = \Response::api();
+        //$this->response = \Response::api();
         
         if (!empty($this->modelName)) {
             $this->model = new $this->modelName;
@@ -74,11 +74,12 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
             $this->collectionName = $this->model->getTable();
         }
         
+        /*
         // parse includes
         if (\Input::get('include') != '') {
             $this->manager = new \League\Fractal\Manager;
             $this->manager->parseIncludes(explode(',', \Input::get('include')));
-        }
+        }*/
 
         parent::__construct();
     }
@@ -136,9 +137,9 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
         try {
             
             if (is_array($id)) {
-                return $this->response->withItem($this->model->where($id)->firstOrFail(), new $this->transformerName);
+                return $this->response->withItem($this->model->where($id)->firstOrFail(), new $this->transformerName, null, $this->meta());
             } else {
-                return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName);
+                return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName, null, $this->meta());
             }            
         
         } catch (ModelNotFoundException $e) {
@@ -156,7 +157,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     public function showByObject($object)
     {        
         try {
-            return $this->response->withItem($object, new $this->transformerName);
+            return $this->response->withItem($object, new $this->transformerName, null, $this->meta());
         
         } catch (ModelNotFoundException $e) {
 
@@ -179,7 +180,18 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
             $model = $model->orderBy($orderCol, $orderBy);
         }
 
-        return $this->response->withPaginator($model->paginate($limit), new $this->transformerName, $this->collectionName);
+        return $this->response->withPaginator($model->paginate($limit), new $this->transformerName, $this->collectionName, $this->meta());
+    }
+
+    /**
+     * Adds API version number to the meta array
+     * 
+     * @param  array $meta
+     * @return array
+     */
+    protected function meta($meta = [])
+    {
+        return array_merge($meta, ['version' => \Config::get('laravel-rest-cms.version')]);
     }
 
     /**
