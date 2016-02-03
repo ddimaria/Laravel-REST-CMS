@@ -1,6 +1,5 @@
 <?php namespace App\LaravelRestCms\ApiKey;
 
-use Chrisbjr\ApiGuard\Models\ApiKey as ApiGuardApiKey;
 use League\Fractal\TransformerAbstract;
 
 class ApiKeyTransformer extends TransformerAbstract {
@@ -8,10 +7,10 @@ class ApiKeyTransformer extends TransformerAbstract {
 	/**
 	 * Perform transformations on the data
 	 * 
-	 * @param  ApiKey $apiKey Eloquent collection
+	 * @param  \Chrisbjr\ApiGuard\Models\ApiKey $apiKey Eloquent collection
 	 * @return array
 	 */
-	public function transform(ApiGuardApiKey $apiKey)
+	public function transform(\Chrisbjr\ApiGuard\Models\ApiKey $apiKey)
 	{
 		return [
 			'key'   => $apiKey->key,
