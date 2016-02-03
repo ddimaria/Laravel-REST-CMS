@@ -96,7 +96,7 @@ class UserController extends ApiController
 		}
 
 		// return api key
-		return $this->response->withItem($user, new \App\LaravelRestCms\User\UserTransformer);
+		return $this->response->withItem($user, new \App\LaravelRestCms\User\UserLoginTransformer, null, $this->meta());
 	}
 
 	/**
