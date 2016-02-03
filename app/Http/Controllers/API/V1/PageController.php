@@ -48,7 +48,7 @@ class PageController extends ApiController
 	public function showBySlug($slug)
 	{        
 		try {
-			return \Response::json($this->model->showBySlug($slug));
+			return $this->response->withArray($this->model->showBySlug($slug));
         
 		} catch (\Exception $e) {
 
