@@ -1,10 +1,11 @@
 <?php namespace Modules\Blog;
 
 use App\LaravelRestCms\BaseModel;
-use App\LaravelRestCms\Page\PageDetail;
 use App\LaravelRestCms\Seo\Seo;
-use App\LaravelRestCms\Template\Template;
+use App\LaravelRestCms\Seo\SeoTransformer;
 use App\LaravelRestCms\User\User;
+use App\LaravelRestCms\User\UserTransformer;
+use Modules\Blog\BlogTransformer;
 
 class Blog extends BaseModel {
 
@@ -57,7 +58,7 @@ class Blog extends BaseModel {
 	 */
 	public function seo()
     {
-        return $this->hasMany(Seo::class, 'id', 'seo_id');
+        return $this->hasOne(Seo::class, 'id', 'seo_id');
     }
 
 	/**
@@ -67,18 +68,18 @@ class Blog extends BaseModel {
 	 */
 	public function user()
     {
-        return $this->hasMany(User::class, 'id', 'created_by');
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 
     /**
-     * Returns a page and associated detail and template data
+     * Returns a blog and associated detail and template data
      * 
      * @param  string $slug
      * @return array
      */
     public function showBySlug($slug)
     {        
-        $data = Page::where(['url' => $slug])->firstOrFail();
+        $data = Blog::where(['url' => $slug])->firstOrFail();
         
         return $this->package($data);
     }
@@ -86,11 +87,15 @@ class Blog extends BaseModel {
     /**
      * Pacages a collection into an array for public consumption
      * 
-     * @param  Page   $data 
+     * @param  Blog   $data 
      * @return array
      */
-    protected function package(Page $data)
+    protected function package(Blog $data)
     {
-    	
+    	$blog = with(new BlogTransformer)->transform($data);
+    	$blog['seo'] = with(new SeoTransformer)->transform($data->seo);
+    	$blog['user'] = with(new UserTransformer)->transform($data->user);
+
+        return $blog;
     }
 }

@@ -2,8 +2,14 @@
 
 use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\Page\PageDetail;
+use App\LaravelRestCms\Page\PageDetailTransformer;
+use App\LaravelRestCms\Page\PageTransformer;
 use App\LaravelRestCms\Seo\Seo;
+use App\LaravelRestCms\Seo\SeoTransformer;
 use App\LaravelRestCms\Template\Template;
+use App\LaravelRestCms\Template\TemplateTransformer;
+use App\LaravelRestCms\User\User;
+use App\LaravelRestCms\User\UserTransformer;
 
 class Page extends BaseModel {
 
@@ -69,7 +75,7 @@ class Page extends BaseModel {
 	 */
 	public function template()
     {
-        return $this->hasMany(Template::class, 'id', 'template_id');
+        return $this->hasOne(Template::class, 'id', 'template_id');
     }
 
 	/**
@@ -79,7 +85,7 @@ class Page extends BaseModel {
 	 */
 	public function seo()
     {
-        return $this->hasMany(Seo::class, 'id', 'seo_id');
+        return $this->hasOne(Seo::class, 'id', 'seo_id');
     }
 
 	/**
@@ -90,6 +96,16 @@ class Page extends BaseModel {
 	public function parent()
     {
         return $this->hasMany(Page::class, 'id', 'parent_id');
+    }
+
+	/**
+	 * Joins the user table
+	 * 
+	 * @return \Illuminate\Database\Eloquent\Relations\hasOne
+	 */
+	public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 
     /**
@@ -113,35 +129,11 @@ class Page extends BaseModel {
      */
     protected function packagePage(Page $data)
     {
-    	$seo = $data->seo->first();
-    	$template = $data->template->first();
+    	$page = with(new PageTransformer)->transform($data);
+    	$page['template'] = with(new TemplateTransformer)->transform($data->template);
+    	$page['seo'] = with(new SeoTransformer)->transform($data->seo);
+    	$page['user'] = with(new UserTransformer)->transform($data->user);
     	
-    	$page = [
-        	'nav_name' => $data->nav_name,
-        	'url' => $data->url,
-        	'title' => $data->title,
-        	'vars' => [],
-        	'template' => [
-        		'name' => $template->name,
-	            'class' => $template->class,
-	            'method' => $template->method,
-	            'params' => $template->params,
-	            'template_name' => $template->template_name,
-	            'layout' => $template->layout,
-        	],
-        	'seo' => [
-        		'title' => $seo->title, 
-	            'keywords' => $seo->keywords, 
-	            'description' => $seo->description,
-	            'og_title' => $seo->og_title,
-	            'og_description' => $seo->og_description,
-	            'og_image' => $seo->og_image,
-	            'og_type' => $seo->og_type,
-	            'fb_app_id' => $seo->fb_app_id,
-	            'meta' => $seo->meta,
-        	]
-        ];
-
         foreach ($data->detail as $detail) {
         	$page['vars'][$detail->templateDetail->first()->var] = $detail->data;
         }
