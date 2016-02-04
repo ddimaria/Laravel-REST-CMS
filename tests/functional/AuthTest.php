@@ -13,7 +13,7 @@ class AuthTest extends TestCase {
 	 *
      * @covers App\Http\Controllers\Api\V1\UserController::authenticate
      * @covers App\LaravelRestCms\User\User::authenticate
-     * @covers App\LaravelRestCms\User\UserTransformer::transform
+     * @covers App\LaravelRestCms\User\UserLoginTransformer::transform
 	 */
 	public function testLogin()
 	{
@@ -22,7 +22,7 @@ class AuthTest extends TestCase {
 		$this->assertEquals(200, $response->getStatusCode());
 		$this->seeJsonContains([
              	"api_key" => Session::get('token')
-         ]);
+        ]);
 	}
 
 	/**
