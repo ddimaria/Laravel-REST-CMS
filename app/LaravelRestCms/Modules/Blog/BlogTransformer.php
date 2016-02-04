@@ -39,9 +39,11 @@ class BlogTransformer extends BaseTransformer {
     {
         return [
             'id' => (int) $blog->id,
-            'nav_name' => $blog->nav_name,
             'url' => $blog->url,
             'title' => $blog->title,
+            'tags' => $blog->tags,
+            'content' => $blog->content,
+            'published_on' => $blog->published_on,
         ];
     }
 
