@@ -137,9 +137,9 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
         try {
             
             if (is_array($id)) {
-                return $this->response->withItem($this->model->where($id)->firstOrFail(), new $this->transformerName, null, $this->meta());
+                return $this->response->withItem($this->model->where($id)->firstOrFail(), new $this->transformerName);
             } else {
-                return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName, null, $this->meta());
+                return $this->response->withItem($this->model->findOrFail($id), new $this->transformerName);
             }            
         
         } catch (ModelNotFoundException $e) {
@@ -157,7 +157,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
     public function showByObject($object)
     {        
         try {
-            return $this->response->withItem($object, new $this->transformerName, null, $this->meta());
+            return $this->response->withItem($object, new $this->transformerName);
         
         } catch (ModelNotFoundException $e) {
 
@@ -180,7 +180,7 @@ abstract class ApiController extends ApiGuardController implements ApiInterface
             $model = $model->orderBy($orderCol, $orderBy);
         }
 
-        return $this->response->withPaginator($model->paginate($limit), new $this->transformerName, $this->collectionName, $this->meta());
+        return $this->response->withPaginator($model->paginate($limit), new $this->transformerName, $this->collectionName);
     }
 
     /**
