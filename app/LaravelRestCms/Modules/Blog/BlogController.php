@@ -42,32 +42,12 @@ class BlogController extends ApiController
 	public function showBySlug($slug)
 	{        
 		try {
-			return \Response::json($this->model->showBySlug($slug));
+			return $this->response->withArray($this->model->showBySlug($slug));
         
 		} catch (\Exception $e) {
 
 			return $this->respondNotFound();
 		}
-	}
-
-	/**
-	 * Returns a blog and associated detail and template data
-	 * 
-	 * @param  mixed $id
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function showWithDetail($id)
-	{        
-		$this->manager->parseIncludes([
-			'parent',
-			'detail',
-			'detail.template_detail',
-			'template',
-			'seo',
-			//'detail.template_detail.parent',
-		]);
-
-		return $this->show($id);
 	}
 
 }
