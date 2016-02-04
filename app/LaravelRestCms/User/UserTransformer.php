@@ -1,10 +1,10 @@
 <?php namespace App\LaravelRestCms\User;
 
-use App\LaravelRestCms\BaseModel;
 use App\LaravelRestCms\ApiKey\ApiKeyTransformer;
-use League\Fractal\TransformerAbstract;
+use App\LaravelRestCms\BaseModel;
+use App\LaravelRestCms\BaseTransformer;
 
-class UserTransformer extends TransformerAbstract {
+class UserTransformer extends BaseTransformer {
 
 	/**
 	 * List of resources possible to include
@@ -28,8 +28,6 @@ class UserTransformer extends TransformerAbstract {
 			'first_name' => $user->first_name,
 			'last_name' => $user->last_name,
 			'email' => $user->email,
-			//'api_key' => $user->apiKey->key,
-			//'version' => \Config::get('laravel-rest-cms.version'),
 		];
 	}
 
