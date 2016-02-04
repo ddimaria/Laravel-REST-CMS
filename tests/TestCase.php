@@ -62,7 +62,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	 */
 	public function createApplication()
 	{
-		$app = require __DIR__.'/../bootstrap/app.php';
+		$app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
@@ -84,10 +84,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	protected function callWithValidToken($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
 	{
         if ($this->requiresToken) {
-        	$this->login();
+        	$response = $this->login();
         }
-     
-        return $this->call($method, $uri, $parameters, $cookies, $files, array_merge($server, ['X-Authorization' => Session::get('token')]), $content);
+     	
+     	return $this->call($method, $uri, $parameters, $cookies, $files, array_merge($server, ['HTTP_X-Authorization' => Session::get('token')]), $content);
 	}
 
 	/**
@@ -107,7 +107,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		
 		$token = json_decode($response->getContent())->data->api_key;
 		$this->session(['token' => $token]);
-
+		
 		return $response;
 	}
 
